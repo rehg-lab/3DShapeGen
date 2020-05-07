@@ -1,0 +1,1 @@
+PATH=./isosurface/:./isosurface/tbb/tbb2018_20180822oss/lib/intel64/gcc4.7:/home/athai6/anaconda3/envs/mesh_funcspace/lib:/home/athai6/anaconda3/lib/:$PATH
