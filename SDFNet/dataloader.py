@@ -10,8 +10,8 @@ import json
 from torchvision import transforms
 
 class Dataset(Dataset):
-    def __init__(self, num_points=-1,mode='train',rep='occnet',\
-            coord_system='2dvc'):
+    def __init__(self, num_points=-1,mode='train',rep='occ',\
+            coord_system='2dvc',iso=0.003):
 
         self.mode = mode
         self.coord_system = coord_system
@@ -40,6 +40,8 @@ class Dataset(Dataset):
         self.rep = rep
 
         self.categories = config.data_setting['categories']
+
+        self.iso = iso
 
         with open(self.data_split_json_path, 'r') as data_split_file:
             self.data_splits = json.load(data_split_file)
@@ -90,6 +92,7 @@ class Dataset(Dataset):
                             for (obj, cat) in self.obj_cat_map \
                             if os.path.exists(os.path.join(self.src_dataset_path, cat, obj))]
 
+        # Input RGB image transform function
         self.img_transform = transforms.Compose([
             transforms.Resize(self.input_size),
             transforms.ToTensor(),
@@ -103,7 +106,6 @@ class Dataset(Dataset):
     def load_image_paths(self):
         '''
         Loads all images paths
-
         '''
         if self.input_image_path is not None:
             image_split_files = [sorted(glob.glob(
@@ -146,10 +148,15 @@ class Dataset(Dataset):
             normal_split_files, seg_split_files
 
     def get_data_sample(self, index, img_idx=-1):
+        '''
+        Get each image sample for __getitem__
+        '''
         if self.random_view:
             assert img_idx != -1
         else:
+            # Object index
             idx = index//self.seq_len
+            # Image/pose index
             img_idx = index % self.seq_len
 
             index = idx
@@ -162,8 +169,6 @@ class Dataset(Dataset):
             image_data = np.array(image_data.numpy())
         else:
             image_data = np.array([])
-
-        
         
         if self.depth_split_paths is not None:
             input_depth = self.depth_split_paths[index][img_idx]
@@ -172,7 +177,7 @@ class Dataset(Dataset):
             depth_min_max = np.load(input_depth)['min_max']
             min_d, max_d = depth_min_max[0], depth_min_max[1]
 
-            ########################################
+            ###### Resize depth npz from 256x256 to 224x224
             depth_image = Image.fromarray(np.uint8(depth_data*255.))
             depth_image = depth_image.resize(\
                 (self.input_size, self.input_size))            
@@ -186,7 +191,8 @@ class Dataset(Dataset):
 
             depth_data[seg_data == 0.] = 10. # Set background to max value
 
-            depth_data[seg_data != 0.] = depth_data[seg_data != 0.]*(max_d-min_d)+min_d
+            depth_data[seg_data != 0.] = \
+                depth_data[seg_data != 0.]*(max_d-min_d)+min_d
             depth_data = np.expand_dims(depth_data, axis=2)
             depth_data = depth_data.transpose(2,0,1)
 
@@ -195,13 +201,14 @@ class Dataset(Dataset):
             else:
                 image_data = np.concatenate(\
                     [image_data, depth_data],axis=0)
-
         else:
             depth_data = None
+
         if self.normal_split_paths is not None:
             input_normal = self.normal_split_paths[index][img_idx]
 
             normal_data = Image.open(input_normal).convert('RGB')
+            # Resize and normalize
             normal_data = normal_data.resize(\
                 (self.input_size, self.input_size))
             normal_data = np.array(normal_data)/255.
@@ -218,54 +225,10 @@ class Dataset(Dataset):
 
         return image_data
 
-
-    def get_points_sample(self, index, img_idx=-1):
-        if self.random_view:
-            assert img_idx != -1
-        else:
-            idx = index//self.seq_len
-            img_idx = index % self.seq_len
-
-            index = idx
-        input_points_path = self.points_split_paths[index]
-        input_points = np.load(\
-                        os.path.join(input_points_path,'points.npz'),\
-                            mmap_mode='r')['points']
-        input_occs = np.load(\
-                        os.path.join(input_points_path, 'occupancies.npz'),\
-                            mmap_mode='r')['occupancies']
-        input_occs = np.unpackbits(input_occs)
-        input_occs = input_occs.astype(np.float32)
-
-        input_points, input_occs = utils.sample_points(input_points,\
-                                                   input_occs,\
-                                                   self.num_points)
-
-        if self.coord_system == '2dvc':
-            input_metadata_path = self.metadata_split_paths[index]
-            meta = np.loadtxt(input_metadata_path)
-            rotate_dict = {'elev': meta[img_idx][1], 'azim': meta[img_idx][0]}
-
-            input_points = utils.apply_rotate(input_points, rotate_dict)
-        elif self.coord_system == '3dvc':
-
-            input_hvc_meta_path = self.hvc_metadata_split_paths[index]
-            hvc_meta = np.loadtxt(input_hvc_meta_path)
-            hvc_rotate_dict = {'elev': hvc_meta[1], 'azim': hvc_meta[0]}
-            input_points = utils.apply_rotate(input_points, hvc_rotate_dict)
-
-            input_metadata_path = self.metadata_split_paths[index]
-            meta = np.loadtxt(input_metadata_path)
-            rotate_dict = {'elev': meta[img_idx][1], 'azim': meta[img_idx][0]-180}
-
-            input_points = utils.apply_rotate(input_points, rotate_dict)
-
-
-        input_points = torch.FloatTensor(input_points)
-        input_occs = torch.FloatTensor(input_occs)
-        return input_points, input_occs
-
     def get_points_sdf_sample(self, index, img_idx=-1):
+        '''
+        Get point sample for __getitem__
+        '''
         assert self.sdf_h5_paths is not None
         if self.random_view:
             assert img_idx != -1
@@ -274,6 +237,7 @@ class Dataset(Dataset):
             img_idx = index % self.seq_len
 
             index = idx
+
         ori_pt, ori_sdf_val, input_points, input_sdfs, norm_params, \
             sdf_params  = utils.get_sdf_h5(self.sdf_h5_paths[index])
         input_points, input_sdfs = utils.sample_points(input_points,\
@@ -281,7 +245,7 @@ class Dataset(Dataset):
                                            self.num_points)
 
         if self.coord_system == '2dvc':
-
+            # Rotate points for 2-DOF VC
             input_metadata_path = self.metadata_split_paths[index]
             meta = np.loadtxt(input_metadata_path)
             rotate_dict = {'elev': meta[img_idx][1], 'azim': meta[img_idx][0]}
@@ -289,7 +253,7 @@ class Dataset(Dataset):
             input_points = utils.apply_rotate(input_points, rotate_dict)
 
         elif self.coord_system == '3dvc':
-
+            # Rotate points for 3-DOF VC
             input_hvc_meta_path = self.hvc_metadata_split_paths[index]
             hvc_meta = np.loadtxt(input_hvc_meta_path)
             hvc_rotate_dict = {'elev': hvc_meta[1], 'azim': hvc_meta[0]}
@@ -297,7 +261,8 @@ class Dataset(Dataset):
 
             input_metadata_path = self.metadata_split_paths[index]
             meta = np.loadtxt(input_metadata_path)
-            rotate_dict = {'elev': meta[img_idx][1], 'azim': meta[img_idx][0]-180}
+            rotate_dict = {'elev': meta[img_idx][1], \
+                'azim': meta[img_idx][0]-180}
 
             input_points = utils.apply_rotate(input_points, rotate_dict)
 
@@ -307,6 +272,9 @@ class Dataset(Dataset):
 
 
     def get_pointcloud_sample(self, index, img_idx=-1):
+        '''
+        Get pointcloud sample for __getitem__ during testing
+        '''
         if self.random_view:
             assert img_idx != -1
         else:
@@ -341,7 +309,8 @@ class Dataset(Dataset):
 
             input_metadata_path = self.metadata_split_paths[index]
             meta = np.loadtxt(input_metadata_path)
-            rotate_dict = {'elev': meta[img_idx][1], 'azim': meta[img_idx][0]-180}
+            rotate_dict = {'elev': meta[img_idx][1], \
+                'azim': meta[img_idx][0]-180}
 
             input_pointcld = utils.apply_rotate(input_pointcld, rotate_dict)
             input_normals = utils.apply_rotate(input_normals, rotate_dict)
@@ -351,9 +320,6 @@ class Dataset(Dataset):
 
         return input_pointcld, input_normals
 
-
-
-
     def __getitem__(self, index):
         if self.random_view:
             img_idx = np.random.choice(self.seq_len)
@@ -362,8 +328,10 @@ class Dataset(Dataset):
         image_data = self.get_data_sample(index, img_idx)
 
         points_data, vals_data = self.get_points_sdf_sample(index, img_idx)
-        if self.rep == 'occnet':
-            vals_data = (vals_data.cpu().numpy() <= 0.003).astype(np.float32)
+        if self.rep == 'occ':
+            # If representation is occupancy, convert sdf values to binary
+            vals_data = (vals_data.cpu().numpy() \
+                    <= self.iso).astype(np.float32)
             vals_data = torch.FloatTensor(vals_data)
 
         if self.mode == 'test':
@@ -382,7 +350,8 @@ class Dataset(Dataset):
         elif self.normal_split_paths != None:
             num_mdl = len(self.normal_split_paths)
         else:
-            raise Exception("Must have at least 1 input image type")
+            raise Exception('Must have at least 1 input image type')
+            
         if self.random_view:
             return num_mdl
         return num_mdl*self.seq_len
