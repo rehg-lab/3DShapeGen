@@ -27,14 +27,7 @@ class Dataset(Dataset):
 
         self.img_extension = config.data_setting['img_extension']
 
-
         self.src_pt_path = config.path['src_pt_path']
-        self.input_points_path = config.path['input_points_path']
-        self.input_pointcloud_path = config.path['input_pointcloud_path']
-
-        self.input_metadata_path = config.path['input_metadata_path']
-
-
         self.data_split_json_path = config.path['data_split_json_path']
 
         self.rep = rep
@@ -351,7 +344,7 @@ class Dataset(Dataset):
             num_mdl = len(self.normal_split_paths)
         else:
             raise Exception('Must have at least 1 input image type')
-            
+
         if self.random_view:
             return num_mdl
         return num_mdl*self.seq_len
