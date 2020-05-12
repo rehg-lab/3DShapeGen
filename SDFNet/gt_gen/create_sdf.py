@@ -31,15 +31,6 @@ parser.add_argument('--num_split', type=int, default=12, \
     help='Number of threads to use')
 args = parser.parse_args()
 
-def get_sdf_value(sdf_pt, sdf_params_ph, sdf_ph, sdf_res):
-    x = np.linspace(sdf_params_ph[0], sdf_params_ph[3], num=sdf_res+1)
-    y = np.linspace(sdf_params_ph[1], sdf_params_ph[4], num=sdf_res+1)
-    z = np.linspace(sdf_params_ph[2], sdf_params_ph[5], num=sdf_res+1)
-    my_interpolating_function = RegularGridInterpolator((z, y, x), sdf_ph)
-    sdf_value = my_interpolating_function(sdf_pt)
-    print("sdf_value:", sdf_value.shape)
-    return np.expand_dims(sdf_value, axis=1)
-
 def get_sdf(sdf_file, sdf_res):
     intsize = 4
     floatsize = 8
@@ -51,39 +42,23 @@ def get_sdf(sdf_file, sdf_res):
         try:
             bytes = f.read()
             ress = np.fromstring(bytes[:intsize * 3], dtype=np.int32)
-            if -1 * ress[0] != sdf_res or ress[1] != sdf_res or ress[2] != sdf_res:
-                raise Exception(sdf_file, "res not consistent with ", str(sdf_res))
-            positions = np.fromstring(bytes[intsize * 3:intsize * 3 + floatsize * 6], dtype=np.float64)
+            if -1 * ress[0] != sdf_res or ress[1] != sdf_res \
+                or ress[2] != sdf_res:
+                raise Exception(sdf_file, "res not consistent with ", \
+                    str(sdf_res))
+            positions = np.fromstring(bytes[intsize * 3:intsize * 3 + \
+                 floatsize * 6], dtype=np.float64)
             # bottom left corner, x,y,z and top right corner, x, y, z
-            sdf["param"] = [positions[0], positions[1], positions[2],
+            sdf["param"] = [positions[0], positions[1], positions[2],\
                             positions[3], positions[4], positions[5]]
             sdf["param"] = np.float32(sdf["param"])
-            sdf["value"] = np.fromstring(bytes[intsize * 3 + floatsize * 6:], dtype=np.float32)
-            sdf["value"] = np.reshape(sdf["value"], (sdf_res + 1, sdf_res + 1, sdf_res + 1))
+            sdf["value"] = np.fromstring(bytes[intsize * 3 + \
+                floatsize * 6:], dtype=np.float32)
+            sdf["value"] = np.reshape(sdf["value"], (sdf_res + 1, \
+                sdf_res + 1, sdf_res + 1))
         finally:
             f.close()
     return sdf
-
-def get_offset_ball(num, bandwidth):
-    u = np.random.normal(0, 1, size=(num,1))
-    v = np.random.normal(0, 1, size=(num,1))
-    w = np.random.normal(0, 1, size=(num,1))
-    r = np.random.uniform(0, 1, size=(num,1)) ** (1. / 3) * bandwidth
-    norm = np.linalg.norm(np.concatenate([u, v, w], axis=1),axis=1, keepdims=1)
-    # print("u.shape",u.shape)
-    # print("norm.shape",norm.shape)
-    # print("r.shape",r.shape)
-    (x, y, z) = r * (u, v, w) / norm
-    return np.concatenate([x,y,z],axis=1)
-
-def get_offset_cube(num, bandwidth):
-    u = np.random.normal(0, 1, size=(num,1))
-    v = np.random.normal(0, 1, size=(num,1))
-    w = np.random.normal(0, 1, size=(num,1))
-    r = np.random.uniform(0, 1, size=(num,1)) ** (1. / 3) * bandwidth
-    norm = np.linalg.norm(np.concatenate([u, v, w], axis=1),axis=1, keepdims=1)
-    (x, y, z) = r * (u, v, w) / norm
-    return np.concatenate([x,y,z],axis=1)
 
 def sample_sdf(cat_id, num_sample, bandwidth, iso_val, sdf_dict, sdf_res):
     start = time.time()
@@ -95,15 +70,14 @@ def sample_sdf(cat_id, num_sample, bandwidth, iso_val, sdf_dict, sdf_res):
                   [bandwidth, 1.1, int(num_sample*0.1)]]
     params = sdf_dict["param"]
     sdf_values = sdf_dict["value"].flatten()
-    # print("np.min(sdf_values), np.mean(sdf_values), np.max(sdf_values)",
-    #       np.min(sdf_values), np.mean(sdf_values), np.max(sdf_values))
     x = np.linspace(params[0], params[3], num=sdf_res + 1).astype(np.float32)
     y = np.linspace(params[1], params[4], num=sdf_res + 1).astype(np.float32)
     z = np.linspace(params[2], params[5], num=sdf_res + 1).astype(np.float32)
     dis = sdf_values - iso_val
     sdf_pt_val = np.zeros((0,4), dtype=np.float32)
     for i in range(len(percentages)):
-        ind = np.argwhere((dis >= percentages[i][0]) & (dis < percentages[i][1]))
+        ind = np.argwhere((dis >= percentages[i][0]) \
+            & (dis < percentages[i][1]))
         if len(ind) < percentages[i][2]:
             if i < len(percentages)-1:
                 percentages[i+1][2] += percentages[i][2] - len(ind)
@@ -120,61 +94,30 @@ def sample_sdf(cat_id, num_sample, bandwidth, iso_val, sdf_dict, sdf_res):
         y_vals = y[y_ind]
         z_vals = z[z_ind]
         vals = sdf_values[choosen_ind]
-        sdf_pt_val_bin = np.concatenate((x_vals, y_vals, z_vals, vals), axis = -1)
-        # print("np.min(vals), np.mean(vals), np.max(vals)", np.min(vals), np.mean(vals), np.max(vals))
-        print("sdf_pt_val_bin.shape", sdf_pt_val_bin.shape)
-        sdf_pt_val = np.concatenate((sdf_pt_val, sdf_pt_val_bin), axis = 0)
+        sdf_pt_val_bin = np.concatenate((x_vals, y_vals, z_vals, vals), \
+            axis = -1)
+        sdf_pt_val = np.concatenate((sdf_pt_val, sdf_pt_val_bin), \
+            axis = 0)
+    return sdf_pt_val
 
-    print("percentages", percentages)
-    print("sample_sdf: {} s".format(time.time()-start))
-    return sdf_pt_val, check_insideout(cat_id, sdf_values, sdf_res, x,y,z)
-
-def check_insideout(cat_id, sdf_val, sdf_res, x, y, z):
-    # "chair": "03001627",
-    # "bench": "02828884",
-    # "cabinet": "02933112",
-    # "car": "02958343",
-    # "airplane": "02691156",
-    # "display": "03211117",
-    # "lamp": "03636649",
-    # "speaker": "03691459",
-    # "rifle": "04090263",
-    # "sofa": "04256520",
-    # "table": "04379243",
-    # "phone": "04401088",
-    # "watercraft": "04530566"
-    if cat_id in ["02958343", "02691156", "04530566"]:
-        x_ind = np.argmin(np.absolute(x))
-        y_ind = np.argmin(np.absolute(y))
-        z_ind = np.argmin(np.absolute(z))
-        all_val = sdf_val.flatten()
-        num_val = all_val[x_ind+y_ind*(sdf_res+1)+z_ind*(sdf_res+1)**2]
-        return num_val > 0.0
-    else:
-        return False
-
-def create_h5_sdf_pt(cat_id, h5_file, sdf_file, flag_file, cube_obj_file, \
+def create_h5_sdf_pt(cat_id, h5_file, sdf_file, cube_obj_file, \
     norm_obj_file, centroid, m, sdf_res, num_sample, bandwidth, iso_val, \
         max_verts, normalize):
     sdf_dict = get_sdf(sdf_file, sdf_res)
     ori_verts = np.asarray([0.0,0.0,0.0], dtype=np.float32).reshape((1,3))
-    print("ori_verts", ori_verts.shape)
-    samplesdf, is_insideout = sample_sdf(cat_id, num_sample, \
-        bandwidth, iso_val, sdf_dict, sdf_res)  # (N*8)x4 (x,y,z)
-    if is_insideout:
-        with open(flag_file, "w") as f:
-            f.write("mid point sdf val > 0")
-        print("insideout !!:", sdf_file)
-    else:
-        os.remove(flag_file) if os.path.exists(flag_file) else None
-    print("samplesdf", samplesdf.shape)
-    print("start to write",h5_file)
-    norm_params = np.concatenate((centroid, np.asarray([m]).astype(np.float32)))
+    samplesdf = sample_sdf(cat_id, num_sample, \
+        bandwidth, iso_val, sdf_dict, sdf_res)
+    norm_params = np.concatenate((centroid, \
+        np.asarray([m]).astype(np.float32)))
     f1 = h5py.File(h5_file, 'w')
-    f1.create_dataset('pc_sdf_original', data=ori_verts.astype(np.float32), compression='gzip', compression_opts=4)
-    f1.create_dataset('pc_sdf_sample', data=samplesdf.astype(np.float32), compression='gzip', compression_opts=4)
-    f1.create_dataset('norm_params', data=norm_params, compression='gzip', compression_opts=4)
-    f1.create_dataset('sdf_params', data=sdf_dict["param"], compression='gzip', compression_opts=4)
+    f1.create_dataset('pc_sdf_original', data=ori_verts.astype(np.float32), \
+        compression='gzip', compression_opts=4)
+    f1.create_dataset('pc_sdf_sample', data=samplesdf.astype(np.float32), \
+        compression='gzip', compression_opts=4)
+    f1.create_dataset('norm_params', data=norm_params, compression='gzip', \
+        compression_opts=4)
+    f1.create_dataset('sdf_params', data=sdf_dict["param"], \
+        compression='gzip', compression_opts=4)
     f1.close()
     command_str = "rm -rf " + norm_obj_file
     os.system(command_str)
@@ -222,19 +165,19 @@ def create_one_sdf(sdfcommand, res, expand_rate, \
     command_str2 = "mv " + str(indx) + ".dist " + sdf_file
     os.system(command_str2)
 
-def create_sdf_obj(sdfcommand, marching_cube_command, cat_mesh_dir, cat_norm_mesh_dir, cat_sdf_dir, obj,
-                   res, iso_val, expand_rate, indx, ish5, normalize, num_sample, bandwidth,
-                   max_verts, cat_id, g, skip_all_exist):
+def create_sdf_obj(sdfcommand, marching_cube_command, cat_mesh_dir, \
+        cat_norm_mesh_dir, cat_sdf_dir, obj, res, iso_val, expand_rate, \
+        indx, ish5, normalize, num_sample, bandwidth, max_verts, \
+        cat_id, g, skip_all_exist):
     obj=obj.rstrip('\r\n')
     sdf_sub_dir = os.path.join(cat_sdf_dir, obj)
     norm_mesh_sub_dir = os.path.join(cat_norm_mesh_dir, obj)
     if not os.path.exists(sdf_sub_dir): os.makedirs(sdf_sub_dir)
     if not os.path.exists(norm_mesh_sub_dir): os.makedirs(norm_mesh_sub_dir)
     sdf_file = os.path.join(sdf_sub_dir, "isosurf.sdf")
-    flag_file = os.path.join(sdf_sub_dir, "isinsideout.txt")
     cube_obj_file = os.path.join(norm_mesh_sub_dir, "isosurf.obj")
     h5_file = os.path.join(sdf_sub_dir, "ori_sample.h5")
-    if ish5 and os.path.exists(h5_file) and (skip_all_exist or not os.path.exists(flag_file)):
+    if ish5 and os.path.exists(h5_file) and skip_all_exist:
         print("skip existed: ", h5_file)
     elif not ish5 and os.path.exists(sdf_file):
         print("skip existed: ", sdf_file)
@@ -242,26 +185,32 @@ def create_sdf_obj(sdfcommand, marching_cube_command, cat_mesh_dir, cat_norm_mes
         model_file = os.path.join(cat_mesh_dir, obj, "models", "model_normalized.obj")
         try:
             if normalize:
-                norm_obj_file, centroid, m = get_normalize_mesh(model_file, norm_mesh_sub_dir)
+                norm_obj_file, centroid, m = \
+                    get_normalize_mesh(model_file, norm_mesh_sub_dir)
 
-            create_one_sdf(sdfcommand, res, expand_rate, sdf_file, norm_obj_file, indx, g=g)
-            create_one_cube_obj(marching_cube_command, iso_val, sdf_file, cube_obj_file)
+            create_one_sdf(sdfcommand, res, expand_rate, sdf_file, \
+                norm_obj_file, indx, g=g)
+            create_one_cube_obj(marching_cube_command, iso_val, sdf_file, \
+                cube_obj_file)
             # change to h5
             if ish5:
-                create_h5_sdf_pt(cat_id,h5_file, sdf_file, flag_file, cube_obj_file, norm_obj_file,
-                     centroid, m, res, num_sample, bandwidth, iso_val, max_verts, normalize)
+                create_h5_sdf_pt(cat_id,h5_file, sdf_file, cube_obj_file, \
+                    norm_obj_file, centroid, m, res, num_sample, bandwidth, \
+                    iso_val, max_verts, normalize)
         except Exception:
             print("Fail to process ", model_file)
 
 def create_one_cube_obj(marching_cube_command, i, sdf_file, cube_obj_file):
-    command_str = marching_cube_command + " " + sdf_file + " " + cube_obj_file + " -i " + str(i)
+    command_str = marching_cube_command + " " + \
+        sdf_file + " " + cube_obj_file + " -i " + str(i)
     print("command:", command_str)
     os.system(command_str)
     return cube_obj_file
 
 def create_sdf(sdfcommand, marching_cube_command, num_sample,
        bandwidth, res, expand_rate, cats, raw_dirs, lst_dir, iso_val,
-       max_verts, ish5= True, normalize=True, g=0.00, skip_all_exist=False, mesh_dir='.', norm_mesh_dir='.', sdf_dir='.', json_path='.',mode=None):
+       max_verts, ish5= True, normalize=True, g=0.00, skip_all_exist=False,
+       mesh_dir='.', norm_mesh_dir='.', sdf_dir='.', json_path='.',mode=None):
     '''
     Usage: SDFGen <filename> <dx> <padding>
     Where:
@@ -340,8 +289,6 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
 
 if __name__ == "__main__":
 
-    # nohup python -u create_point_sdf_grid.py &> create_sdf.log &
-
     mesh_dir = args.mesh_dir
     norm_mesh_dir = args.norm_mesh_dir
     sdf_dir = args.sdf_dir
@@ -351,13 +298,13 @@ if __name__ == "__main__":
     ptcl_save_dir = args.ptcl_save_dir
     pointcloud_size = args.ptcl_size
     num_split = args.num_split
-    
+
     create_sdf("./isosurface/computeDistanceField",
                "./isosurface/computeMarchingCubes", 32768, 0.1,
-               256, 1.2, cats, raw_dirs,
-               lst_dir, 0.003, 16384, ish5=True, normalize=True, g=0.00,skip_all_exist=True, mesh_dir=mesh_dir, 
-                    norm_mesh_dir=norm_mesh_dir, sdf_dir=sdf_dir,
-                    json_path=json_path, mode=mode)
+               256, 1.2, cats, raw_dirs, lst_dir, 0.003, 16384,
+               ish5=True, normalize=True, g=0.00, skip_all_exist=True,
+               mesh_dir=mesh_dir, norm_mesh_dir=norm_mesh_dir,
+               sdf_dir=sdf_dir, json_path=json_path, mode=mode)
     if ptcl:
         print('Generating pointcloud')
         os.system('python generate_ptcld.py --mesh_dir=%s --json_path=%s \
