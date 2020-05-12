@@ -8,8 +8,7 @@ from scipy.interpolate import RegularGridInterpolator
 import time
 import argparse
 import json
-
-CUR_PATH = os.path.dirname(os.path.realpath(__file__))
+import generate_ptcld
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mesh_dir', type=str, default='.', \
@@ -22,6 +21,14 @@ parser.add_argument('--json_path', type=str, default='.', \
     help='Path to json file')
 parser.add_argument('--mode', type=str, default=None, \
     help='Generating mode (train, val, test). If None all 3 are generated')
+parser.add_argument('--ptcl', type=bool, default=True, \
+    help='Whether to generate pointcloud')
+parser.add_argument('--ptcl_save_dir', type=str, default='.', \
+    help='Where to save pointclouds')
+parser.add_argument('--ptcl_size', type=int, default=100000, \
+    help='Size of pointcloud')
+parser.add_argument('--num_split', type=int, default=12, \
+    help='Number of threads to use')
 args = parser.parse_args()
 
 def get_sdf_value(sdf_pt, sdf_params_ph, sdf_ph, sdf_res):
@@ -335,20 +342,24 @@ if __name__ == "__main__":
 
     # nohup python -u create_point_sdf_grid.py &> create_sdf.log &
 
-    #  full set
-    lst_dir, cats, all_cats, raw_dirs = create_file_lst.get_all_info()
-    if FLAGS.category != "all":
-        cats = {
-            FLAGS.category:cats[FLAGS.category]
-        }
     mesh_dir = args.mesh_dir
     norm_mesh_dir = args.norm_mesh_dir
     sdf_dir = args.sdf_dir
     json_path = args.json_path
     mode = args.mode
+    ptcl = args.ptcl
+    ptcl_save_dir = args.ptcl_save_dir
+    pointcloud_size = args.ptcl_size
+    num_split = args.num_split
+    
     create_sdf("./isosurface/computeDistanceField",
                "./isosurface/computeMarchingCubes", 32768, 0.1,
                256, 1.2, cats, raw_dirs,
                lst_dir, 0.003, 16384, ish5=True, normalize=True, g=0.00,skip_all_exist=True, mesh_dir=mesh_dir, 
                     norm_mesh_dir=norm_mesh_dir, sdf_dir=sdf_dir,
                     json_path=json_path, mode=mode)
+    if ptcl:
+        print('Generating pointcloud')
+        os.system('python generate_ptcld.py --mesh_dir=%s --json_path=%s \
+            --save_dir=%s --pointcloud_size=%d --num_split=%d --mode=%s'\
+            %(mesh_dir, json_path, ptcl_save_dir, ptcl_size, num_split, mode))
