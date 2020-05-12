@@ -8,7 +8,8 @@ from scipy.interpolate import RegularGridInterpolator
 import time
 import argparse
 import json
-import generate_ptcld
+import constant
+# import generate_ptcld
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mesh_dir', type=str, default='.', \
@@ -21,6 +22,29 @@ parser.add_argument('--json_path', type=str, default='.', \
     help='Path to json file')
 parser.add_argument('--mode', type=str, default=None, \
     help='Generating mode (train, val, test). If None all 3 are generated')
+parser.add_argument('--categories', type=str, default='shapenet_13', \
+    help='Short-handed categories to generate ground-truth')
+
+parser.add_argument('--num_samples', type=int, default=32768, \
+    help='Number of sdf sampled')
+parser.add_argument('--bandwidth', type=float, default=0.1, \
+    help='Bandwidth of sampling')
+parser.add_argument('--res', type=int, default=256, \
+    help='Resolution of grid to sample sdf')
+parser.add_argument('--expand_rate', type=float, default=1.2, \
+    help='Max value of x,y,z')
+parser.add_argument('--iso_val', type=float, default=0.003, \
+    help='Iso surface value')
+parser.add_argument('--max_verts', type=int, default=16384, \
+    help='Maximum number of vertices')
+
+parser.add_argument('--ish5', type=bool, default=True, \
+    help='Whether to save in h5py type')
+parser.add_argument('--normalize', type=bool, default=True, \
+    help='Whether to normalize gt mesh')
+parser.add_argument('--skip_all_exist', type=bool, default=True, \
+    help='Whether to skip existing ground-truth')
+
 parser.add_argument('--ptcl', type=bool, default=True, \
     help='Whether to generate pointcloud')
 parser.add_argument('--ptcl_save_dir', type=str, default='.', \
@@ -208,7 +232,7 @@ def create_one_cube_obj(marching_cube_command, i, sdf_file, cube_obj_file):
     return cube_obj_file
 
 def create_sdf(sdfcommand, marching_cube_command, num_sample,
-       bandwidth, res, expand_rate, cats, raw_dirs, lst_dir, iso_val,
+       bandwidth, res, expand_rate, cats, iso_val,
        max_verts, ish5= True, normalize=True, g=0.00, skip_all_exist=False,
        mesh_dir='.', norm_mesh_dir='.', sdf_dir='.', json_path='.',mode=None):
     '''
@@ -229,7 +253,7 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
     start = 0
     categories = os.listdir(mesh_dir)
     categories = [c for c in categories if c.startswith('0') \
-        if c in cats.keys()]
+        if c in cats]
     for cat_id in categories:
         cat_sdf_dir = os.path.join(sdf_dir, cat_id)
         if not os.path.exists(cat_sdf_dir):
@@ -282,7 +306,7 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
                     expand_rate_lst,
                     indx_lst, ish5_lst, normalize_lst, num_sample_lst,
                     bandwidth_lst, max_verts_lst, cat_id_lst,\
-                     g_lst,skip_all_exist_lst))
+                    g_lst,skip_all_exist_lst))
             start+=repeat
     print("finish all")
 
@@ -298,12 +322,22 @@ if __name__ == "__main__":
     ptcl_save_dir = args.ptcl_save_dir
     pointcloud_size = args.ptcl_size
     num_split = args.num_split
+    categories = args.categories
+    if categories == 'shapenet_13':
+        cats = constant.shapenet_13
+    elif categories == 'shapenet_42':
+        cats = constant.shapenet_42
+    elif categories == 'shapenet_55':
+        cats = constant.shapenet_55
+    else:
+        raise Exception('Please implement customed categories here')
 
     create_sdf("./isosurface/computeDistanceField",
-               "./isosurface/computeMarchingCubes", 32768, 0.1,
-               256, 1.2, cats, raw_dirs, lst_dir, 0.003, 16384,
-               ish5=True, normalize=True, g=0.00, skip_all_exist=True,
-               mesh_dir=mesh_dir, norm_mesh_dir=norm_mesh_dir,
+               "./isosurface/computeMarchingCubes", args.num_samples, \
+               args.bandwidth, args.res, args.expand_rate, cats, \
+               args.iso_val, args.max_verts, ish5=args.ish5, \
+               normalize=args.normalize, g=0.00, skip_all_exist=True, \
+               mesh_dir=mesh_dir, norm_mesh_dir=norm_mesh_dir, \
                sdf_dir=sdf_dir, json_path=json_path, mode=mode)
     if ptcl:
         print('Generating pointcloud')
