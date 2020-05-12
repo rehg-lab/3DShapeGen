@@ -1,0 +1,73 @@
+{
+    "light_parameters": {
+        "light_types":["POINT", "AREA"],
+        "area_strength_range": [300, 650],
+        "area_strength_default": 400,
+        "area_temp_default": 6000,
+        "point_light_locations": [
+            [2.5, 2.5, 3],
+            [-2.5, 2.5, 3],
+            [2.5, -2.5, 3],
+            [-2.5, -2.5, 3]
+        ],
+        "point_strength_range": [
+            150,
+            300
+        ],
+        "point_size_range": [0.05,0.1],
+        "area_light_location":[0,0,3.5],
+        "area_size_x": 10,
+        "area_size_y": 10,
+        "light_temperature_range": [
+            5000,
+            7000
+        ]
+    },
+    "render_parameters": {
+        "use_persistent_data": true,
+        "transparent_min_bounces": 2,
+        "color_mode": "RGBA",
+        "max_bounces": 2,
+        "render_samples": 25,
+        "use_spatial_splits": true,
+        "render_tile_y": 256,
+        "transparent_max_bounces": 2,
+        "rendering_device": "GPU",
+        "use_caustics_refractive": false,
+        "resolution_percentage": 100,
+        "denoising_radius": 5,
+        "glossy_bounces": 2,
+        "min_bounces": 2,
+        "transmission_bounces": 2,
+        "use_film_transparent": true,
+        "use_denoising": true,
+        "render_tile_x": 256,
+        "use_caustics_reflective": false,
+        "resolution": 256
+    },
+    "material_parameters":{
+        "specular_range":[0.6,0.9],
+        "rougness_range":[0.1,0.25]
+    },
+    "camera":{
+        "focal_length_mm":35,
+        "distance_units":2.2,
+        "sensor_size_mm":32
+    },
+    "paths":{
+        "blender_path":"/home/sstojanov3/apps/blender-2.79b-linux-glibc219-x86_64/blender",
+        "shapenet_path":"/media/sstojanov3/2_TB_1/ShapeNet_meshes/ShapeNetCore.v2",
+        "output_path":"/home/sstojanov3/develop/bmvc2020-release/Rendering/shapenet_test"
+    },
+    "gen_params":{
+        "elev_range":[-50, 50],
+        "azim_range":[0, 360],
+        "n_points":25,
+        "debug":false,
+        "jitter_lights":true,
+        "lambertian":false,
+        "jitter_reflectance":true,
+        "3DOF_vc":false,
+        "outputs":["image", "albedo", "normal", "depth_absolute", "depth_01", "segmentation"]
+    }
+}
