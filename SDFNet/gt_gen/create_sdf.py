@@ -56,6 +56,9 @@ parser.add_argument('--num_split', type=int, default=12, \
 args = parser.parse_args()
 
 def get_sdf(sdf_file, sdf_res):
+    '''
+    Retrieves sdf from .sdf file
+    '''
     intsize = 4
     floatsize = 8
     sdf = {
@@ -85,6 +88,9 @@ def get_sdf(sdf_file, sdf_res):
     return sdf
 
 def sample_sdf(cat_id, num_sample, bandwidth, iso_val, sdf_dict, sdf_res):
+    '''
+    Samples points closer to the surface
+    '''
     start = time.time()
     percentages = [[-1.1,-1.*bandwidth, int(num_sample*0.1)],
         [-1. * bandwidth, -1. * bandwidth * 0.30, int(num_sample * 0.15)],
@@ -127,6 +133,18 @@ def sample_sdf(cat_id, num_sample, bandwidth, iso_val, sdf_dict, sdf_res):
 def create_h5_sdf_pt(cat_id, h5_file, sdf_file, cube_obj_file, \
     norm_obj_file, centroid, m, sdf_res, num_sample, bandwidth, iso_val, \
         max_verts, normalize):
+    '''
+    Creates h5 file for sdf
+    args:
+        cat_id: category id
+        h5_file: path to save h5 file
+        sdf_file: path to sdf file
+        cube_obj_file: path to iso mesh
+        norm_obj_file: path to normalized mesh
+        centroid: center of bounding box of original mesh
+        m: scale of original mesh
+        sdf_res: grid resolution
+    '''
     sdf_dict = get_sdf(sdf_file, sdf_res)
     ori_verts = np.asarray([0.0,0.0,0.0], dtype=np.float32).reshape((1,3))
     samplesdf = sample_sdf(cat_id, num_sample, \
@@ -150,7 +168,12 @@ def create_h5_sdf_pt(cat_id, h5_file, sdf_file, cube_obj_file, \
 
 
 def get_normalize_mesh(model_file, norm_mesh_sub_dir):
-    ############### bounding box
+    '''
+    Normalizes meshes with center of bounding box
+    args:
+        model_file: path to original mesh
+        norm_mesh_sub_dir: path to normalized mesh
+    '''
     try:
         mesh = pymesh.load_mesh(model_file)
     except Exception:
@@ -162,7 +185,8 @@ def get_normalize_mesh(model_file, norm_mesh_sub_dir):
     loc = (bbox[0] + bbox[1]) / 2
     scale = (bbox[1] - bbox[0]).max()
 
-    # Transform input mesh
+    # Transform input mesh to center of bounding box and normalize to 
+    # unit cube
     try:
         mesh.apply_translation(-loc)
         mesh.apply_scale(1 / scale)
@@ -179,7 +203,14 @@ def get_normalize_mesh(model_file, norm_mesh_sub_dir):
 
 def create_one_sdf(sdfcommand, res, expand_rate, \
         sdf_file, obj_file, indx, g=0.0):
-
+    '''
+    Creates sdf for one object
+    args:
+        sdfcommand: command that calls computeDistanceField library
+        obj_file: path to normalized mesh
+        indx: index of sdf file
+        g: param of computeDistanceField, default is 0.0
+    '''
     command_str = sdfcommand + " " + obj_file + " " + str(res) + " " + \
         str(res) + " " + str(res) + " -s " + " -e " + str(expand_rate) + \
          " -o " + str(indx) + ".dist -m 1"
@@ -218,16 +249,23 @@ def create_sdf_obj(sdfcommand, marching_cube_command, cat_mesh_dir, \
                 cube_obj_file)
             # change to h5
             if ish5:
-                create_h5_sdf_pt(cat_id,h5_file, sdf_file, cube_obj_file, \
+                create_h5_sdf_pt(cat_id, h5_file, sdf_file, cube_obj_file, \
                     norm_obj_file, centroid, m, res, num_sample, bandwidth, \
                     iso_val, max_verts, normalize)
         except Exception:
             print("Fail to process ", model_file)
 
 def create_one_cube_obj(marching_cube_command, i, sdf_file, cube_obj_file):
+    '''
+    Creates iso-mesh for one object
+    args:
+        marching_cube_command: command that calls computeMarchingCube library
+        i: iso-surface value
+        sdf_file: path to sdf file of the object
+        cube_obj_file: path to iso-mesh of the object
+    '''
     command_str = marching_cube_command + " " + \
         sdf_file + " " + cube_obj_file + " -i " + str(i)
-    print("command:", command_str)
     os.system(command_str)
     return cube_obj_file
 
@@ -236,11 +274,27 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
        max_verts, ish5= True, normalize=True, g=0.00, skip_all_exist=False,
        mesh_dir='.', norm_mesh_dir='.', sdf_dir='.', json_path='.',mode=None):
     '''
-    Usage: SDFGen <filename> <dx> <padding>
-    Where:
-        res is number of grids on xyz dimension
-        w is narrowband width
-        expand_rate is sdf range of max x,y,z
+    This function creates sdf values and iso meshes.
+    args:
+        sdfcommand: calls computeDistanceField library
+        marching_cube_command: calls computeMarchingCube library to compute
+            iso meshes from distance field
+        num_sample: number of points get sampled during training
+        bandwidth: bandwidth for points sampling
+        res: grid resolution
+        expand_rate: max x,y,z for sdf range
+        cats: list of categories
+        iso_val: iso-surface value
+        max_verts: max number of vertices of iso mesh
+        ish5: whether to export to h5 format
+        normalize: whether to normalize mesh
+        g: sdf command param, default is 0.0
+        skip_all_exist: whether to skip existing sdf files
+        mesh_dir: directory of original mesh
+        norm_mesh_dir: directory of normalized iso mesh
+        sdf_dir: directory of sdf files
+        json_path: path to json files containing categories and objects
+        mode: 'train', 'val', 'test'
     '''
     if not os.path.exists(sdf_dir):
         os.makedirs(sdf_dir)
@@ -290,12 +344,12 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
                     cat_norm_mesh_dir, cat_sdf_dir, obj, res, \
                  iso_val, expand_rate, indx, ish5, norm, \
                     num_sample, bandwidth, max_verts, cat_id, \
-                        g, version, skip_all_exist)
+                        g, skip_all_exist)
                 for sdfcommand, marching_cube_command, cat_mesh_dir, \
                     cat_norm_mesh_dir, cat_sdf_dir, obj, \
                     res, iso_val, expand_rate, indx, ish5, \
                     norm, num_sample, bandwidth, max_verts, \
-                    cat_id, g, version, skip_all_exist in
+                    cat_id, g, skip_all_exist in
                     zip(sdfcommand_lst,
                     marching_cube_command_lst,
                     cat_mesh_dir_lst,
@@ -310,7 +364,6 @@ def create_sdf(sdfcommand, marching_cube_command, num_sample,
             start+=repeat
     print("finish all")
 
-
 if __name__ == "__main__":
 
     mesh_dir = args.mesh_dir
@@ -320,7 +373,7 @@ if __name__ == "__main__":
     mode = args.mode
     ptcl = args.ptcl
     ptcl_save_dir = args.ptcl_save_dir
-    pointcloud_size = args.ptcl_size
+    ptcl_size = args.ptcl_size
     num_split = args.num_split
     categories = args.categories
     if categories == 'shapenet_13':
@@ -332,15 +385,26 @@ if __name__ == "__main__":
     else:
         raise Exception('Please implement customed categories here')
 
+    num_samples = args.num_samples
+    bandwidth = args.bandwidth
+    res = args.res
+    expand_rate = args.expand_rate
+    iso_val = args.iso_val
+    max_verts = args.max_verts
+    ish5 = args.ish5
+    normalize = args.normalize
+
     create_sdf("./isosurface/computeDistanceField",
-               "./isosurface/computeMarchingCubes", args.num_samples, \
-               args.bandwidth, args.res, args.expand_rate, cats, \
-               args.iso_val, args.max_verts, ish5=args.ish5, \
-               normalize=args.normalize, g=0.00, skip_all_exist=True, \
+               "./isosurface/computeMarchingCubes", num_samples, \
+               bandwidth, res, expand_rate, cats, \
+               iso_val, max_verts, ish5=ish5, \
+               normalize=normalize, g=0.00, skip_all_exist=True, \
                mesh_dir=mesh_dir, norm_mesh_dir=norm_mesh_dir, \
                sdf_dir=sdf_dir, json_path=json_path, mode=mode)
     if ptcl:
         print('Generating pointcloud')
-        os.system('python generate_ptcld.py --mesh_dir=%s --json_path=%s \
-            --save_dir=%s --pointcloud_size=%d --num_split=%d --mode=%s'\
-            %(mesh_dir, json_path, ptcl_save_dir, ptcl_size, num_split, mode))
+        os.system('python ./gt_gen/generate_ptcld.py --mesh_dir=%s \
+            --json_path=%s --save_dir=%s --pointcloud_size=%d \
+            --num_split=%d --mode=%s'\
+            %(norm_mesh_dir, json_path, ptcl_save_dir, ptcl_size, \
+                num_split, mode))

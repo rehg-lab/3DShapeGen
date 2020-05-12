@@ -56,8 +56,6 @@ def generate_ptcld(arg):
                 print('Error in generating pointcloud for category %s, \
                     object %s'%(cat, obj))
 
-
-
 if __name__ == '__main__':
     mesh_dir = args.mesh_dir
     json_path = args.json_path
