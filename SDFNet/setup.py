@@ -54,31 +54,12 @@ mise_module = Extension(
     ],
 )
 
-# simplify (efficient mesh simplification)
-simplify_mesh_module = Extension(
-    'mesh_gen_utils.libsimplify.simplify_mesh',
-    sources=[
-        'mesh_gen_utils/libsimplify/simplify_mesh.pyx'
-    ]
-)
-
-# voxelization (efficient mesh voxelization)
-voxelize_module = Extension(
-    'mesh_gen_utils.libvoxelize.voxelize',
-    sources=[
-        'mesh_gen_utils/libvoxelize/voxelize.pyx'
-    ],
-    libraries=['m']  # Unix-like specific
-)
-
 # Gather all extension modules
 ext_modules = [
     pykdtree,
     mcubes_module,
     triangle_hash_module,
-    mise_module,
-    simplify_mesh_module,
-    voxelize_module
+    mise_module
 ]
 
 setup(

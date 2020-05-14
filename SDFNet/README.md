@@ -1,3 +1,12 @@
+### Environment Setup
+Create environment using [anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/)
+```bash
+conda env create -f environment.yml
+```
+Compile OccNet extension modules in `mesh_gen_utils`
+```bash
+python setup.py build_ext --inplace
+```
 ### Generating SDF Ground-truths and Pointclouds
 ```
 usage: create_sdf.py [-h] [--mesh_dir MESH_DIR]
