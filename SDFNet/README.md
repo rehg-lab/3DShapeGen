@@ -81,6 +81,7 @@ python read_eval_output.py
 vim results/<eval_task_name>.txt
 ```
 Code used and adapted from
+
 1. [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)
 2. [DISN](https://github.com/Xharlie/DISN)
 3. Our F-Score implementation is based on [What Do Single-view 3D Reconstruction Networks Learn?](https://github.com/lmb-freiburg/what3d)
