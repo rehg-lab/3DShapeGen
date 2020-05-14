@@ -7,6 +7,11 @@ Compile OccNet extension modules in `mesh_gen_utils`
 ```bash
 python setup.py build_ext --inplace
 ```
+To generate ground-truth and perform testing, change the path in `isosurface/LIB_PATH` to your miniconda/anaconda libraries, for example
+```bash
+export LD_LIBRARY_PATH="<path_to_anaconda>/lib:<path_to_anaconda>/envs/sdf_net/lib:./isosurface:$LD_LIBRARY_PATH" 
+source isosurface/LIB_PATH
+```
 ### Generating SDF Ground-truths and Pointclouds
 ```
 usage: create_sdf.py [-h] [--mesh_dir MESH_DIR]
