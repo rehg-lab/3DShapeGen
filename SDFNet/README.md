@@ -80,7 +80,7 @@ python eval.py
 python read_eval_output.py
 vim results/<eval_task_name>.txt
 ```
-Code used and adapted from
+This project uses code based on parts of the following repositories
 
 1. [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)
 2. [DISN](https://github.com/Xharlie/DISN)
