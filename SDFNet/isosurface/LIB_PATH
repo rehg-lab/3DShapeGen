@@ -1,1 +1,1 @@
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./isosurface/:/home/ant/develop/DISN/isosurface/tbb/tbb2018_20180822oss/lib/intel64/gcc4.7:/home/ant/intel/lib/intel64:/home/ant/intel/mkl/lib/intel64:/usr/lib:/usr/lib/cuda/lib64:/usr/lib/x86_64-linux-gnu/
+export LD_LIBRARY_PATH="/home/athai6/anaconda3/lib:/home/athai6/anaconda3/envs/sdf_net/lib:./isosurface:$LD_LIBRARY_PATH"
