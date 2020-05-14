@@ -7,12 +7,12 @@ Compile OccNet extension modules in `mesh_gen_utils`
 ```bash
 python setup.py build_ext --inplace
 ```
-To generate ground-truth and perform testing, change the path in `isosurface/LIB_PATH` to your miniconda/anaconda libraries, for example
+To generate ground truths and perform testing, change the path in `isosurface/LIB_PATH` to your miniconda/anaconda libraries, for example
 ```bash
 export LD_LIBRARY_PATH="<path_to_anaconda>/lib:<path_to_anaconda>/envs/sdf_net/lib:./isosurface:$LD_LIBRARY_PATH" 
 source isosurface/LIB_PATH
 ```
-### Generating SDF Ground-truths and Pointclouds
+### Generating SDF Ground truths and Pointclouds
 ```
 usage: create_sdf.py [-h] [--mesh_dir MESH_DIR]
                      [--norm_mesh_dir NORM_MESH_DIR] [--sdf_dir SDF_DIR]
@@ -80,3 +80,7 @@ python eval.py
 python read_eval_output.py
 vim results/<eval_task_name>.txt
 ```
+Code used and adapted from
+1. [Occupancy Networks](https://github.com/autonomousvision/occupancy_networks)
+2. [DISN](https://github.com/Xharlie/DISN)
+3. Our F-Score implementation is based on [What Do Single-view 3D Reconstruction Networks Learn?](https://github.com/lmb-freiburg/what3d)
