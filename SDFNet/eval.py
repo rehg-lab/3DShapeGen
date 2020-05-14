@@ -129,7 +129,6 @@ def main():
                 out_normals.append(out_dict['normals'])
                 out_iou.append(out_dict['iou'])
                 out_fscore.append(out_dict['fscore'])
-
                 np.savez(os.path.join(eval_task_dir, 'out.npz'), \
                     obj_cat=np.array(out_obj_cat), pose=np.array(out_pose),\
                     cd=np.array(out_cd), normals=np.array(out_normals),\

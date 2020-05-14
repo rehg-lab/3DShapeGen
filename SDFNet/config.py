@@ -32,8 +32,8 @@ training = dict(
 		coord_system = '3dvc'
 		)
 logging = dict(
-		log_dir = '/scr/devlearning/log',
-		exp_name = 'sdf_pred_dn_hvc_basic'
+		log_dir = '/data/devlearning/model_output_test/log',
+		exp_name = 'sdf_3dvc'
 		)
 testing = dict(
 		eval_task_name = 'sdf_3dvc',
