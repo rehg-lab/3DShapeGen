@@ -12,6 +12,7 @@ To generate ground truths and perform testing, change the path in `isosurface/LI
 export LD_LIBRARY_PATH="<path_to_anaconda>/lib:<path_to_anaconda>/envs/sdf_net/lib:./isosurface:$LD_LIBRARY_PATH" 
 source isosurface/LIB_PATH
 ```
+Note that the following ground truths generation, training and testing procedures apply to experiments on both ShapeNet and ABC.
 ### Generating SDF Ground truths and Pointclouds
 ```
 usage: create_sdf.py [-h] [--mesh_dir MESH_DIR]
@@ -74,6 +75,8 @@ After changing the parameters in `config.py` run the following to train the mode
 ```bash
 python train.py
 ```
+### Pre-trained SDFNet
+Pre-trained SDFNet models can be downloaded [here](link-to-download)
 ### Testing SDFNet
 ```bash
 python eval.py
