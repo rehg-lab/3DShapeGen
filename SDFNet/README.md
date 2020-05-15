@@ -13,6 +13,21 @@ export LD_LIBRARY_PATH="<path_to_anaconda>/lib:<path_to_anaconda>/envs/sdf_net/l
 source isosurface/LIB_PATH
 ```
 Note that the following ground truths generation, training and testing procedures apply to experiments on both ShapeNet and ABC.
+### Data
+[Link](data-link) to download rendering data, SDF ground truths and pointclouds.
+### Training SDFNet
+After changing the parameters in `config.py` run the following to train the model from scratch
+```bash
+python train.py
+```
+### Pre-trained SDFNet
+Pre-trained SDFNet models can be downloaded [here](link-to-download)
+### Testing SDFNet
+```bash
+python eval.py
+python read_eval_output.py
+vim results/<eval_task_name>.txt
+```
 ### Generating SDF Ground truths and Pointclouds
 ```
 usage: create_sdf.py [-h] [--mesh_dir MESH_DIR]
@@ -61,27 +76,14 @@ optional arguments:
   --num_split NUM_SPLIT
                         Number of threads to use
 ```
-Example command to generate ground-truth sdf with pointclouds
+Example command to generate sdf ground truths with pointclouds
 ```bash
 python gt_gen/create_sdf.py --mesh_dir=../../ShapeNetCore.v2/ --norm_mesh_dir=../../gen_mesh --sdf_dir=../../gen_sdf --json_path=../../data.json --mode=test --ptcl_save_dir=../../gen_ptcl
 ```
-To generate ground-truth and pointclouds separately
+To generate sdf ground truths and pointclouds separately
 ```bash
 python gt_gen/create_sdf.py --mesh_dir=../../ShapeNetCore.v2/ --norm_mesh_dir=../../gen_mesh --sdf_dir=../../gen_sdf --json_path=../../data.json --mode=test --ptcl=False
 python gt_gen/generate_ptcld.py --mesh_dir=../../gen_mesh --json_path=../../data.json --save_dir=../../gen_ptcl
-```
-### Training SDFNet
-After changing the parameters in `config.py` run the following to train the model from scratch
-```bash
-python train.py
-```
-### Pre-trained SDFNet
-Pre-trained SDFNet models can be downloaded [here](link-to-download)
-### Testing SDFNet
-```bash
-python eval.py
-python read_eval_output.py
-vim results/<eval_task_name>.txt
 ```
 This project uses code based on parts of the following repositories
 

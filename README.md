@@ -3,11 +3,11 @@ In this work we present a comprehensive exploration of generalization to unseen 
 
 This repository consists of the code for rendering, training and evaluating SDFNet as well as baseline method [Occupancy Networks](https://arxiv.org/pdf/1812.03828.pdf). Code to repoduce results for baseline method [GenRe](http://papers.nips.cc/paper/7494-learning-to-reconstruct-shapes-from-unseen-classes.pdf) can be found [here](https://github.com/devlearning-gt/GenRe-ShapeHD).
 
-## Rendering
-Follow instructions in [Rendering README](link)
-
 ## Training and evaluating SDFNet and OccNet
 Follow instructions in [SDFNet README](https://github.com/devlearning-gt/3DShapeGen/blob/master/SDFNet/README.md)
 
 ## Training and evaluating GenRe
 Follow instruction in [GenRe README](https://github.com/devlearning-gt/GenRe-ShapeHD/blob/master/README.md)
+
+## Rendering
+Follow instructions in [Rendering README](link)
