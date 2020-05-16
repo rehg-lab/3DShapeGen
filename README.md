@@ -10,4 +10,4 @@ Follow instructions in [SDFNet README](https://github.com/devlearning-gt/3DShape
 Follow instruction in [GenRe README](https://github.com/devlearning-gt/GenRe-ShapeHD/blob/master/README.md)
 
 ## Rendering
-Follow instructions in [Rendering README](link)
+Follow instructions in [Rendering README](https://github.com/devlearning-gt/3DShapeGen/blob/master/Rendering/README.md)
