@@ -1,3 +1,7 @@
+![alt text](rendering.png)
+
+This repository contains code to render the [ShapeNet](https://shapenet.org/) and [ABC](https://deep-geometry.github.io/abc-dataset/) datasets from various poses, lighting and material properties.
+
 # Rendering ShapeNet and ABC using Blender 2.79b
 
 Note: there is overlap in the code for ShapeNet and ABC but there are subtle differences that would make a unified codebase more complex without significant gain.
@@ -13,5 +17,5 @@ For MacOS the default installation path is
 Depending on your OS, add the appropriate path in the `data_generation_parameters.json` file under the key `"blender_path"`.
 The file `data_generation_paramters.json` is used for both ABC and ShapeNet.
 
-## Step 2.
+## Step 2
 Further instructions are included in each dataset directory.
