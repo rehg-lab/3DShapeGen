@@ -18,4 +18,6 @@ Depending on your OS, add the appropriate path in the `data_generation_parameter
 The file `data_generation_paramters.json` is used for both ABC and ShapeNet.
 
 ## Step 2
-Further instructions are included in each dataset directory.
+
+1. Download the datasets from their respective locations
+2. Further instructions are included in each dataset directory.
