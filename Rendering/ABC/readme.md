@@ -1,4 +1,4 @@
-![abc-samples](ABC/abc_samples.png)
+![abc-samples](abc_samples.png)
 
 # Rendering ABC Objects
 
