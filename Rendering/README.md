@@ -20,4 +20,6 @@ The file `data_generation_paramters.json` is used for both ABC and ShapeNet.
 ## Step 2
 
 1. Download the datasets from their respective locations
-2. Further instructions are included in each dataset directory.
+2. Further instructions are included in each dataset directory
+     [ABC](./ABC/readme.md)
+     [ShapeNet](./ShapeNet/readme.md)
