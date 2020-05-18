@@ -28,3 +28,36 @@ Once the ABC `.obj` files are downloaded, the first step is to make the appropri
     - `lambertian` - an option to render all objects with a white lambertian shader. Default is shown in the image samples above.
     - `3DOF_vc` - randomly rotate the object once before sampling in `azim_range` and `elev_range`. This allows for greater variability in object poses accross the dataset. 
     - `outputs` - list of `["image", "albedo", "normal", "depth_absolute", "depth_01", "segmentation"]` which defines the types of outputs that should be generated. `depth_absolute` indicates absolute depth images and `depth_01` indicates relative depth images where `min=0` and `max=1`.
+
+### Running Data Generation
+```
+usage: wrapper.py [-h] [-start START] [-end END] -out_file OUT_FILE [-v] -gpu
+                  GPU
+
+Range of Objects
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -start START        start point in data list
+  -end END            end point in data list
+  -out_file OUT_FILE  file to output progress to
+  -v                  verbose: print or supress blender output
+  -gpu GPU            gpu index to use
+  ```
+ 
+`wrapper.py` builds a list of all of objects, and the `-start` and `-end` arguments can be used to define which range of objects to render. This is useful when rendering using multiple runs on multiple GPUs.
+`run_data_generation.py` can be used to run a big rendering job over multiple GPUs without having to manually start multiple instances of `wrapper.py`.
+
+### Output Structure
+
+For each object, a directory will be created under `output_path` in `data_generation_parameters.json` and a subdirectory for each value in `outputs` of `gen_params`. There is also a `metadata.txt` file that's output that contains the pose information of the object for each image rendered that can be read using `np.loadtxt`.
+
+```
+# azim      elev
+57.12      -47.35
+174.08     18.83
+15.66      48.86
+38.00      30.44
+312.67     -11.42
+...
+```
