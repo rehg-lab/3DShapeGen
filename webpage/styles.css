@@ -1,0 +1,158 @@
+
+.header {
+  padding-top: min(10%, 40px);
+  padding-bottom: min(10%, 40px);
+  padding-left: min(10%, 100px);
+  padding-right: min(10%, 100px);
+  position: relative;
+  margin: 0px;
+  overflow: auto;
+  text-align: center;
+  background: rgb(0, 38, 58);
+  color: #f2f2f2;
+  font-size: 12pt;
+  font-family: Helvetica, sans-serif;
+  border-radius: 5px;
+}
+
+.header h1{
+  font-size: calc(36px + 0.5vw);
+  font-weight: 200;
+}
+
+.header p.authors{
+  color: #f2f2f2;
+  font-size: min(18px + 0.5vw);
+}
+
+.header p.authors a:link {
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+.header p.authors a:visited {
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+.header p.authors a:hover {
+  text-decoration: underline;
+  color: #f2f2f2;
+}
+
+.header p.authors a:active {
+  text-decoration: underline;
+  color: #f2f2f2;
+}
+
+.header p.institution{
+  position: relative;
+  top: 20px;
+  color: #f2f2f2;
+  font-size: min(18px + 0.5vw);
+}
+
+.header span.footnote{
+  position:absolute;
+  bottom:0;
+  right:0;           
+  padding-right:20px;
+}
+
+.links {
+    font-size: 12pt;
+    font-family: Helvetica, sans-serif;
+    margin: auto;
+    width: min(100%, 700px);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.links div.gallery {
+  margin: 5px;
+  float: left;
+  width: min(20%, 200px);
+}
+
+.links div.gallery img {
+  width: 100%;
+  max-height: 200px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+}
+
+.links div.desc {
+  padding-top: 5px;
+  text-align: center;
+}
+
+.content {
+  font-family: Helvetica, sans-serif;
+  margin: auto;
+  width: min(80%, 700px);
+  padding: 10px;
+}
+
+.content p {
+  font-size: 12pt;
+  line-height: 1.4;
+  font-family: Helvetica, sans-serif;
+  text-align: justify;
+}
+
+.content h1{
+  font-size: calc(24px + 0.5vw);
+  font-weight: 200;
+  top-margin: 50px;
+  bottom-margin: 50px;
+}
+
+.content h2{
+  font-size: calc(16px + 0.5vw);
+  font-weight: 200;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.content img {
+  width: 100%;
+  max-height: 400px;
+}
+.content .desc {
+  padding-top: 5px;
+  text-align: center;
+}
+
+.gifs {
+    font-size: 12pt;
+    font-family: Helvetica, sans-serif;
+    margin: auto;
+    width: min(100%, 700px);
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.gifs div.gallery {
+  margin: 5px;
+  float: left;
+  width: min(30%, 300px);
+  height: min(30%, 300px);
+}
+
+.gifs div.gallery img {
+  width: 100%;
+  max-height: 400px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
+}
+
+.gifs div.desc {
+  padding-top: 5px;
+  text-align: center;
+}
+
