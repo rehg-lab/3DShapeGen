@@ -63,7 +63,7 @@
     font-size: 12pt;
     font-family: Helvetica, sans-serif;
     margin: auto;
-    width: min(100%, 700px);
+    width: min(100%, 900px);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -89,10 +89,12 @@
 }
 
 .content {
+  position: relative;
   font-family: Helvetica, sans-serif;
-  margin: auto;
-  width: min(80%, 700px);
-  padding: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  width: min(100%, 1500px);
+  padding: 15px;
 }
 
 .content p {
@@ -118,7 +120,7 @@
 }
 
 .content img {
-  width: 100%;
+  width: auto;
   max-height: 400px;
 }
 .content .desc {
@@ -130,7 +132,9 @@
     font-size: 12pt;
     font-family: Helvetica, sans-serif;
     margin: auto;
-    width: min(100%, 700px);
+    width: 100%;
+
+    /* width: min(100%, 700px); */
     padding: 0px;
     display: flex;
     justify-content: center;
