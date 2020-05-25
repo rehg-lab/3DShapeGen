@@ -127,7 +127,8 @@
 }
 
 .gifs {
-    font-size: 9pt;
+    /*font-size: 9pt;*/
+    font-size: calc(5pt + 0.5vw);
     font-family: Helvetica, sans-serif;
     margin: auto;
     /* width: 100%; */
@@ -187,8 +188,9 @@
 }
 
 .container_gif div.gallery {
-  width: min(13%, 200px);
-  height: min(13%, 200px);
+  margin: 0.5%;
+  width: 13%;
+  height: 13%;
 }
 
 .container_gif div.gallery img {
