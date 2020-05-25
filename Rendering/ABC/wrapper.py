@@ -21,10 +21,10 @@ blender_script_path = os.path.abspath('generate.py')
 blendfile_path = os.path.abspath(os.path.join(blend_files_path, 'empty_scene.blend'))
 
 parser = argparse.ArgumentParser(description='Range of Objects')
-parser.add_argument('-start', type=int, help='start point', default=0)
-parser.add_argument('-end', type=int, help='end point', default=200)
+parser.add_argument('-start', type=int, help='start point in data list', default=0)
+parser.add_argument('-end', type=int, help='end point in data list', default=200)
 parser.add_argument('-out_file', type=str, help='file to output progress to', required=True)
-parser.add_argument('-v', dest='v', action='store_true', default=False)
+parser.add_argument('-v', dest='v', action='store_true', help='verbose: print or supress blender output', default=False)
 
 parser.add_argument('-gpu', type=int, help='gpu index to use', required=True)
 
@@ -59,6 +59,7 @@ shutil.copy(param_json_path,
 for i in range(args.start, args.end):
     p = obj_paths[i]
     obj_num = p.split('/')[-1]
+    
     start_time = time.time()
     
     if args.v:

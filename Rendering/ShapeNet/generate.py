@@ -83,6 +83,11 @@ def generate():
     obj.name = 'object'
 
     metadata_save_path = os.path.join(output_path, obj_synset, str(obj_fname), 'metadata.txt')
+    
+    ## setting camera parameters
+    bpy.data.objects['Camera'].data.sensor_width = data_gen_params['camera']['sensor_size_mm']
+    bpy.data.objects['Camera'].data.sensor_width = data_gen_params['camera']['focal_length_mm']
+    bpy.data.objects['Camera'].location = (0,0,data_gen_params['camera']['distance_units'])
 
     #setting variables
     scn = bpy.context.scene
@@ -234,13 +239,9 @@ def generate():
             
             render_utils.reset_rot(obj)
             bpy.context.scene.update()
-    # rendering normals
     
     # rendering normals
-    ## TMP ##
-    #render_params['render_samples'] =
-    render_params['use_denoising'] = False
-    render_utils.apply_settings(scn, render_params)
+    scn.render.layers['RenderLayer'].cycles.use_denoising = False
 
     mat_path = os.path.join(dir_path, './blend_files/materials.blend')
     materials = render_utils.load_materials(mat_path)

@@ -25,8 +25,8 @@ blender_script_path = os.path.abspath('generate.py')
 blendfile_path = os.path.abspath(os.path.join(blend_files_path, 'empty_scene.blend'))
 
 parser = argparse.ArgumentParser(description='Range of Objects')
-parser.add_argument('-start', type=int, help='start point', default=0)
-parser.add_argument('-end', type=int, help='end point', default=200)
+parser.add_argument('-start', type=int, help='start point in data list', default=0)
+parser.add_argument('-end', type=int, help='end point in data list', default=200)
 parser.add_argument('-out_file', type=str, help='file to output progress to', required=True)
 parser.add_argument('-gpu', type=int, help='gpu index to use', required=True)
 parser.add_argument('-v', dest='v', action='store_true', default=False)
@@ -76,7 +76,7 @@ for i in range(args.start, args.end):
     synset, obj = obj_dict[i]
     start_time = time.time()
     
-    #objects in cars that stall the generating process
+    #objects that stall the generating process
     if obj in ['3975b2350688e38c65552c4ac8607d25',
                'c5c4e6110fbbf5d3d83578ca09f86027']:
         continue
