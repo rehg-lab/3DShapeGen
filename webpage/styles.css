@@ -132,7 +132,7 @@
     margin: auto;
     /* width: 100%; */
 
-    width: min(100%, 700px);
+    width: min(100%, 1000px);
     padding: 0px;
     display: flex;
     justify-content: center;
@@ -141,8 +141,8 @@
 .gifs div.gallery {
   margin: 5px;
   float: left;
-  width: min(30%, 300px);
-  height: min(30%, 300px);
+  width: min(46%, 300px);
+  height: min(46%, 300px);
 }
 
 .gifs div.gallery img {
@@ -154,6 +154,17 @@
 }
 
 .gifs div.desc {
+  padding-top: 5px;
+  text-align: center;
+}
+
+.container {
+  font-family: Helvetica, sans-serif;
+  margin: auto;
+  width: min(100%, 1000px);
+  padding: 0px;
+}
+.container .desc {
   padding-top: 5px;
   text-align: center;
 }

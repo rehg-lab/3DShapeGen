@@ -55,73 +55,202 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
 
 
 <h1> Generalizing to Seen and Unseen Shapes </h1>
-<div class="row">
-    <div class="col text-align">
     <p>
       Our proposed architecture SDFNet is able to successfuly reconstruct the shape from a single 
       image of object shape categories seen during training as well as new, unseen object categories. 
       SDFNet is trained to predict SDF values in the same pose as the input image without requiring knowledge of camera parameters or object pose at test time.
       Qualitative results show superiority compared to baselines GenRe <a href="#GenRe">[1]</a> and OccNet <a href="#OccNet">[2]</a></p>
-    </div>
-</div>
 
-<h2> Seen Category Reconstruction </h1>
+      <div class="gifs">
+          <div class="container">
+              <div class="desc">Seen Class</div>
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/occnet_sdfnet/table.png" >
+                  <div class="desc">Input</div>
+                </div>
+            <div class="gallery">
+                
+              <img class="gif" src="gif/GIF/occnet_sdfnet/table_sdfnet_gif.gif" >
+              <div class="desc">SDFNet</div>
+            </div>
+            
+            <div class="gallery">
+              <img class="gif" src="gif/GIF/occnet_sdfnet/table_occnet_gif.gif" >
+              <div class="desc">OccNet</div>
+            </div>
+      
+            <div class="gallery">
+                <img class="gif" src="gif/GIF/occnet_sdfnet/table_gt_gif.gif" >
+                <div class="desc">Ground truth</div>
+              </div>
+            
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/genre/table_pred_gif.gif" >
+                  <div class="desc">GenRe</div>
+                </div>
+          
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/genre/table_gt_gif.gif" >
+                    <div class="desc">Ground truth</div>
+                  </div>
+            
+            
+          </div>
+    <div class="container">
+        <div class="desc">Unseen Class</div>
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox.png" >
+            <div class="desc">Input</div>
+          </div>
+      <div class="gallery">
+          
+        <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_sdfnet_pred.gif" >
+        <div class="desc">SDFNet</div>
+      </div>
+      
+      <div class="gallery">
+        <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_occnet_pred.gif" >
+        <div class="desc">OccNet</div>
+      </div>
+
+      <div class="gallery">
+          <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_gt.gif" >
+          <div class="desc">Ground truth</div>
+        </div>
+
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/mailbox_pred_gif.gif" >
+            <div class="desc">GenRe</div>
+          </div>
+    
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/mailbox_gt_gif.gif" >
+            <div class="desc">Ground truth</div>
+          </div>
+      
+    </div>
+  
+    <div class="container">
+        <div class="desc">Unseen Class</div>
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/occnet_sdfnet/watch.png" >
+            <div class="desc">Input</div>
+          </div>
+      <div class="gallery">
+          
+        <img class="gif" src="gif/GIF/occnet_sdfnet/watch_sdfnet_pred.gif" >
+        <div class="desc">SDFNet</div>
+      </div>
+      
+      <div class="gallery">
+        <img class="gif" src="gif/GIF/occnet_sdfnet/watch_occnet_pred.gif" >
+        <div class="desc">OccNet</div>
+      </div>
+
+      <div class="gallery">
+          <img class="gif" src="gif/GIF/occnet_sdfnet/watch_gt.gif" >
+          <div class="desc">Ground truth</div>
+        </div>
+
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/genre_watch.gif" >
+            <div class="desc">GenRe</div>
+          </div>
+    
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/watch_gt_gif.gif" >
+            <div class="desc">Ground truth</div>
+          </div>
+      
+    </div>
+
+
+    <div class="container">
+        <div class="desc">Unseen Class</div>
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/occnet_sdfnet/sink.png" >
+            <div class="desc">Input</div>
+          </div>
+      <div class="gallery">
+          
+        <img class="gif" src="gif/GIF/occnet_sdfnet/sink_sdfnet_pred.gif" >
+        <div class="desc">SDFNet</div>
+      </div>
+      
+      <div class="gallery">
+        <img class="gif" src="gif/GIF/occnet_sdfnet/sink_occnet_pred.gif" >
+        <div class="desc">OccNet</div>
+      </div>
+
+      <div class="gallery">
+          <img class="gif" src="gif/GIF/occnet_sdfnet/sink_gt.gif" >
+          <div class="desc">Ground truth</div>
+        </div>
+
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/sink_pred_gif.gif" >
+            <div class="desc">GenRe</div>
+          </div>
+    
+        <div class="gallery">
+            <img class="gif" src="gif/GIF/genre/sink_gt_gif.gif" >
+            <div class="desc">Ground truth</div>
+          </div>
+      
+    </div>
+    
 </div>
+<div class="desc">Qualitative results of SDFNet, OccNet VC and GenRe on seen and unseen classes of 2 DOF ShapeNetCore.v2</div>
+<br><br>
+
 <div class="gifs">
-    <div class="gallery"> 
-      <img class="gif" src="gif/airplane_INPUT.png" >
-      <div class="desc">Input</br>Image</div>
+    <div class="container">
+        <div class="desc">Seen Class</div>
+      <div class="gallery">
+          
+        <img class="gif" src="gif/airplane_PRED.gif" >
+        <div class="desc">Predicted</div>
+      </div>
+      
+      <div class="gallery">
+        <img class="gif" src="gif/airplane_GT.gif" >
+        <div class="desc">Ground Truth</div>
+      </div>
+      
     </div>
+    <div class="container">
+        <div class="desc">Unseen Class</div>
+      <div class="gallery">
+        
+        <img class="gif" src="gif/tub_PRED.gif" >
+        <div class="desc">Predicted</div>
+      </div>
     
-    <div class="gallery">
-      <img class="gif" src="gif/airplane_PRED.gif" >
-      <div class="desc">Predicted</br>Shape</div>
-    </div>
-    
-    <div class="gallery">
-      <img class="gif" src="gif/airplane_GT.gif" >
-      <div class="desc">Ground Truth</br>Shape</div>
+      <div class="gallery">
+        
+        <img class="gif" src="gif/tub_GT.gif" >
+        <div class="desc">Ground Truth</div>
+      </div>
+      
     </div>
 
-</div>
-
-<div class="content">
-<h2> Unseen Category Reconstruction </h1>
-</div>
-<div class="gifs">
-    <div class="gallery"> 
-      <img class="gif" src="gif/tub_INPUT.png" >
-      <div class="desc">Input</br>Image</div>
+    <div class="container">
+      <div class="desc">Unseen Class</div>
+      <div class="gallery">
+        <img class="gif" src="gif/camera_PRED.gif" >
+        <div class="desc">Predicted</div>
+      </div>
+      
+      <div class="gallery">
+        
+        <img class="gif" src="gif/camera_GT.gif" >
+        <div class="desc">Ground Truth</div>
+      </div>
+      
     </div>
     
-    <div class="gallery">
-      <img class="gif" src="gif/tub_PRED.gif" >
-      <div class="desc">Predicted</br>Shape</div>
-    </div>
-    
-    <div class="gallery">
-      <img class="gif" src="gif/tub_GT.gif" >
-      <div class="desc">Ground Truth</br>Shape</div>
-    </div>
-
 </div>
-
-</div>
-<div class="gifs">
-    <div class="gallery"> 
-      <img class="gif" src="gif/camera_INPUT.png" >
-      <div class="desc">Input</br>Image</div>
-    </div>
-    
-    <div class="gallery">
-      <img class="gif" src="gif/camera_PRED.gif" >
-      <div class="desc">Predicted</br>Shape</div>
-    </div>
-    
-    <div class="gallery">
-      <img class="gif" src="gif/camera_GT.gif" >
-      <div class="desc">Ground Truth</br>Shape</div>
-    </div>
+<div class="desc">SDFNet reconstruction performance on classes seen during training and novel classes not seen during training</div>
 
 </div>
 
@@ -130,7 +259,7 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
 
 <h1> Viewer Centered Training Affects Generalization</h1>
 <p>
-  When evaluated on 3 Degree-of-Freedom Viewer Centered (3 DOF VC), when object pose varies along azimuth, elevation and tilt,
+  When evaluated on 3 Degree-of-Freedom Viewer Centered (3 DOF VC)&mdash;object pose varies along azimuth, elevation and tilt,
   our empirical findings show marginal decrease in performance between seen and unseen classes for the 3 DOF VC model. 
   This is new evidence that it is possible to learn a general shape representation with correct depth estimation and 3 DOF VC training.
   </p>
@@ -148,13 +277,9 @@ To further test the generalization ability of SDFNet, we train it one one shape 
 <div class="desc"> Qualitative comparison of models trained on ABC and tested on ShapeNet and vice-versa. Note the good reconstruction quality on the occluded part of the object.</div>
 
 <h1> Citation  </h1>
+<p>Bibliography information of this work:</p>
 <p>
-Sed dignissim urna eget sapien facilisis, quis sodales justo tempus. Sed mattis, arcu ut aliquet suscipit, dolor augue tempor diam, nec viverra urna sem in sem. Nullam nisi magna, rhoncus nec lacus id, dapibus elementum quam. Proin at nibh non enim consectetur sodales eu at neque. Suspendisse viverra, enim eget hendrerit lobortis, arcu lacus semper nibh, at vehicula est sem et ante. Proin viverra velit non turpis porttitor mollis. Morbi ut velit maximus, aliquet nibh in, aliquam sapien. Vestibulum vitae lobortis urna. 
-</p>
-
-<h1> Acknowledgements  </h1>
-<p>
-Sed dignissim urna eget sapien facilisis, quis sodales justo tempus. Sed mattis, arcu ut aliquet suscipit, dolor augue tempor diam, nec viverra urna sem in sem. Nullam nisi magna, rhoncus nec lacus id, dapibus elementum quam. Proin at nibh non enim consectetur sodales eu at neque. Suspendisse viverra, enim eget hendrerit lobortis, arcu lacus semper nibh, at vehicula est sem et ante. Proin viverra velit non turpis porttitor mollis. Morbi ut velit maximus, aliquet nibh in, aliquam sapien. Vestibulum vitae lobortis urna. 
+Thai, A., Stojanov, S., Upadhya, V., Rehg, J. (2020). 3D Reconstruction of Novel Object Shapes from Single Images. <cite>arXiv preprint.</cite>
 </p>
 
 <h1> References  </h1>
