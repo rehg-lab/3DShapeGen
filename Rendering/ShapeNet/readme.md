@@ -1,4 +1,4 @@
-![shapenet-examples](ShapeNet/shapenet_examples.png)
+![shapenet-examples](shapenet_examples.png)
 
 # Rendering ShapeNet Objects
 
