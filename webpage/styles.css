@@ -63,7 +63,7 @@
     font-size: 12pt;
     font-family: Helvetica, sans-serif;
     margin: auto;
-    width: min(100%, 700px);
+    width: min(80%, 700px);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -72,7 +72,7 @@
 .links div.gallery {
   margin: 5px;
   float: left;
-  width: min(20%, 200px);
+  width: min(15%, 150px);
 }
 
 .links div.gallery img {
@@ -157,6 +157,11 @@
   padding-top: 5px;
   text-align: center;
 }
+.gifs div.desc_vert {
+  text-align: center;
+  margin: auto;
+  padding-bottom: 10px;
+}
 
 .container {
   font-family: Helvetica, sans-serif;
@@ -167,5 +172,32 @@
 .container .desc {
   padding-top: 5px;
   text-align: center;
+}
+
+
+.container_gif {
+  font-family: Helvetica, sans-serif;
+  margin: auto;
+  width: min(100%, 1000px);
+  padding: 0px;
+}
+.container_gif .desc {
+  padding-top: 5px;
+  text-align: center;
+}
+
+.container_gif div.gallery {
+  margin: auto;
+  float: left;
+  width: min(13%, 200px);
+  height: min(13%, 2000px);
+}
+
+.container_gif div.gallery img {
+  width: 100%;
+  max-height: 400px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: black;
 }
 

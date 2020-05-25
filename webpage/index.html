@@ -31,15 +31,15 @@
 <div class="links">
 
     <div class="gallery">
-      <a target="_blank" href="img_5terre.jpg" class="d-inline-block p-3">
-	<img height="200" width="180" src="img/code_img.png" alt="Cinque Terre">
+      <a target="_blank" href="img_5terre.jpg">
+	<img width="100" height="150" src="img/code_img.png" alt="Cinque Terre">
       </a>
       <div class="desc">Code</div>
     </div>
     
     <div class="gallery">
-      <a target="_blank" href="img_5terre.jpg" class="d-inline-block p-3">
-	<img height="200" width="180" src="img/paper_img.png" alt="Cinque Terre">
+      <a target="_blank" href="img_5terre.jpg">
+	<img width="100" height="150" src="img/paper_img.png" alt="Cinque Terre">
       </a>
       <div class="desc">Paper</div>
     </div>
@@ -62,15 +62,16 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
       Qualitative results show superiority compared to baselines GenRe <a href="#GenRe">[1]</a> and OccNet <a href="#OccNet">[2]</a></p>
 
       <div class="gifs">
-          <div class="container">
-              <div class="desc">Seen Class</div>
+          <div class="desc_vert">Seen Class</div>
+          <div class="container_gif">
+              
               <div class="gallery">
                   <img class="gif" src="gif/GIF/occnet_sdfnet/table.png" >
                   <div class="desc">Input</div>
                 </div>
             <div class="gallery">
                 
-              <img class="gif" src="gif/GIF/occnet_sdfnet/table_sdfnet_gif.gif" >
+              <img class="gif" src="gif/GIF/occnet_sdfnet/table_sdfnet_pred_gif.gif" >
               <div class="desc">SDFNet</div>
             </div>
             
@@ -83,6 +84,11 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
                 <img class="gif" src="gif/GIF/occnet_sdfnet/table_gt_gif.gif" >
                 <div class="desc">Ground truth</div>
               </div>
+
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/genre/table_input.png" >
+                  <div class="desc">Input</div>
+                </div>
             
               <div class="gallery">
                   <img class="gif" src="gif/GIF/genre/table_pred_gif.gif" >
@@ -96,110 +102,137 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
             
             
           </div>
-    <div class="container">
-        <div class="desc">Unseen Class</div>
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox.png" >
-            <div class="desc">Input</div>
-          </div>
-      <div class="gallery">
-          
-        <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_sdfnet_pred.gif" >
-        <div class="desc">SDFNet</div>
-      </div>
-      
-      <div class="gallery">
-        <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_occnet_pred.gif" >
-        <div class="desc">OccNet</div>
       </div>
 
-      <div class="gallery">
-          <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_gt.gif" >
-          <div class="desc">Ground truth</div>
+      <div class="gifs">
+          <div class="desc_vert">Novel Class</div>
+          <div class="container_gif">
+              
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox.png" >
+                  <div class="desc">Input</div>
+                </div>
+            <div class="gallery">
+                
+              <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_sdfnet_pred.gif" >
+              <div class="desc">SDFNet</div>
+            </div>
+            
+            <div class="gallery">
+              <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_occnet_pred.gif" >
+              <div class="desc">OccNet</div>
+            </div>
+      
+            <div class="gallery">
+                <img class="gif" src="gif/GIF/occnet_sdfnet/mailbox_gt.gif" >
+                <div class="desc">Ground truth</div>
+              </div>
+
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/genre/mailbox_input.png" >
+                  <div class="desc">Input</div>
+                </div>
+            
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/genre/mailbox_pred_gif.gif" >
+                  <div class="desc">GenRe</div>
+                </div>
+          
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/genre/mailbox_gt_gif.gif" >
+                    <div class="desc">Ground truth</div>
+                  </div>
+            
+            
+          </div>
         </div>
 
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/mailbox_pred_gif.gif" >
-            <div class="desc">GenRe</div>
+        <div class="gifs">
+            <div class="desc_vert">Novel Class</div>
+            <div class="container_gif">
+                
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/occnet_sdfnet/watch.png" >
+                    <div class="desc">Input</div>
+                  </div>
+              <div class="gallery">
+                  
+                <img class="gif" src="gif/GIF/occnet_sdfnet/watch_sdfnet_pred.gif" >
+                <div class="desc">SDFNet</div>
+              </div>
+              
+              <div class="gallery">
+                <img class="gif" src="gif/GIF/occnet_sdfnet/watch_occnet_pred.gif" >
+                <div class="desc">OccNet</div>
+              </div>
+        
+              <div class="gallery">
+                  <img class="gif" src="gif/GIF/occnet_sdfnet/watch_gt.gif" >
+                  <div class="desc">Ground truth</div>
+                </div>
+
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/genre/watch_input.png" >
+                    <div class="desc">Input</div>
+                  </div>
+        
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/genre/genre_watch.gif" >
+                    <div class="desc">GenRe</div>
+                  </div>
+            
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/genre/watch_gt_gif.gif" >
+                    <div class="desc">Ground truth</div>
+                  </div>
+              
+              
+            </div>
           </div>
-    
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/mailbox_gt_gif.gif" >
-            <div class="desc">Ground truth</div>
-          </div>
-      
-    </div>
-  
-    <div class="container">
-        <div class="desc">Unseen Class</div>
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/occnet_sdfnet/watch.png" >
-            <div class="desc">Input</div>
-          </div>
-      <div class="gallery">
+
+          <div class="gifs">
+              <div class="desc_vert">Novel Class</div>
+              <div class="container_gif">
+                  
+                  <div class="gallery">
+                      <img class="gif" src="gif/GIF/occnet_sdfnet/sink.png" >
+                      <div class="desc">Input</div>
+                    </div>
+                <div class="gallery">
+                    
+                  <img class="gif" src="gif/GIF/occnet_sdfnet/sink_sdfnet_pred.gif" >
+                  <div class="desc">SDFNet</div>
+                </div>
+                
+                <div class="gallery">
+                  <img class="gif" src="gif/GIF/occnet_sdfnet/sink_occnet_pred.gif" >
+                  <div class="desc">OccNet</div>
+                </div>
           
-        <img class="gif" src="gif/GIF/occnet_sdfnet/watch_sdfnet_pred.gif" >
-        <div class="desc">SDFNet</div>
-      </div>
-      
-      <div class="gallery">
-        <img class="gif" src="gif/GIF/occnet_sdfnet/watch_occnet_pred.gif" >
-        <div class="desc">OccNet</div>
-      </div>
-
-      <div class="gallery">
-          <img class="gif" src="gif/GIF/occnet_sdfnet/watch_gt.gif" >
-          <div class="desc">Ground truth</div>
-        </div>
-
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/genre_watch.gif" >
-            <div class="desc">GenRe</div>
-          </div>
-    
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/watch_gt_gif.gif" >
-            <div class="desc">Ground truth</div>
-          </div>
-      
-    </div>
-
-
-    <div class="container">
-        <div class="desc">Unseen Class</div>
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/occnet_sdfnet/sink.png" >
-            <div class="desc">Input</div>
-          </div>
-      <div class="gallery">
+                <div class="gallery">
+                    <img class="gif" src="gif/GIF/occnet_sdfnet/sink_gt.gif" >
+                    <div class="desc">Ground truth</div>
+                  </div>
+                
+                  <div class="gallery">
+                      <img class="gif" src="gif/GIF/genre/sink_input.png" >
+                      <div class="desc">Input</div>
+                    </div>
           
-        <img class="gif" src="gif/GIF/occnet_sdfnet/sink_sdfnet_pred.gif" >
-        <div class="desc">SDFNet</div>
-      </div>
-      
-      <div class="gallery">
-        <img class="gif" src="gif/GIF/occnet_sdfnet/sink_occnet_pred.gif" >
-        <div class="desc">OccNet</div>
-      </div>
-
-      <div class="gallery">
-          <img class="gif" src="gif/GIF/occnet_sdfnet/sink_gt.gif" >
-          <div class="desc">Ground truth</div>
-        </div>
-
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/sink_pred_gif.gif" >
-            <div class="desc">GenRe</div>
-          </div>
+                  <div class="gallery">
+                      <img class="gif" src="gif/GIF/genre/sink_pred_gif.gif" >
+                      <div class="desc">GenRe</div>
+                    </div>
+              
+                  <div class="gallery">
+                      <img class="gif" src="gif/GIF/genre/sink_gt_gif.gif" >
+                      <div class="desc">Ground truth</div>
+                    </div>
+                
+                
+              </div>
+            </div>
     
-        <div class="gallery">
-            <img class="gif" src="gif/GIF/genre/sink_gt_gif.gif" >
-            <div class="desc">Ground truth</div>
-          </div>
-      
-    </div>
-    
-</div>
 <div class="desc">Qualitative results of SDFNet, OccNet VC and GenRe on seen and unseen classes of 2 DOF ShapeNetCore.v2</div>
 <br><br>
 
