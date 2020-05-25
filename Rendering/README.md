@@ -23,3 +23,7 @@ The file `data_generation_paramters.json` is used for both ABC and ShapeNet.
 2. Further instructions are included in each dataset directory
      - [ABC](./ABC)
      - [ShapeNet](./ShapeNet)
+
+## Step 3
+
+1. Postprocess the rendered data to turn the `.exr` depth outputs into images and `min` and `max` values for the depth on the visible object surface using `utils/convert_exr.py`. This provides absolute depth information.
