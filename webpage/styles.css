@@ -89,11 +89,9 @@
 }
 
 .content {
-  position: relative;
   font-family: Helvetica, sans-serif;
-  margin-right: auto;
-  margin-left: auto;
-  width: min(100%, 1000px);
+  margin: auto;
+  width: min(80%, 1000px);
   padding: 15px;
 }
 
