@@ -70,9 +70,12 @@
 }
 
 .links div.gallery {
-  margin: 5px;
+  margin: 1%;
   float: left;
-  width: min(15%, 150px);
+  width: 15%;
+  height: 15%;
+
+  /* width: min(15%, 150px); */
 }
 
 .links div.gallery img {
