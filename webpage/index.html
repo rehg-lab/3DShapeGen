@@ -41,7 +41,7 @@
       <a target="_blank" href="img_5terre.jpg">
 	<img src="img/paper_img.png" alt="Cinque Terre">
       </a>
-      <div class="desc">Paper</div>
+      <div class="desc">Paper <a href="bib.com">[BibTex]</a></div>
     </div>
 
 </div>
@@ -54,7 +54,7 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
 </p> -->
 
 
-<h1> Generalizing to Seen and Unseen Shapes </h1>
+
     <p>
       Our proposed architecture SDFNet is able to successfuly reconstruct the shape from a single 
       image of object shape categories seen during training as well as new, unseen object categories. 
@@ -234,8 +234,13 @@ A key challenge in single image 3D shape reconstruction is to ensure that deep m
             </div>
     
 <div class="desc">Qualitative results of SDFNet, OccNet VC and GenRe on seen and unseen classes of 2 DOF ShapeNetCore.v2</div>
-<br><br>
 
+<!-- <br><br> -->
+<h1> Generalizing to Seen and Unseen Shapes </h1>
+<p>SDFNet is able to capture fine-grained details on the surface of seen classes (airplane example below) and infer occluded 
+  surfaces of unseen categories (bathtub and camera). By explicitly estimating 2.5D sketches, SDFNet can capture concave surfaces (bathtub) 
+  and overcome depth ambiguity (camera lens).
+</p>
 <div class="gifs">
     <div class="container">
         <div class="desc">Seen Class</div>
