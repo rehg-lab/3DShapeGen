@@ -14,14 +14,14 @@ source isosurface/LIB_PATH
 ```
 Note that the following ground truths generation, training and testing procedures apply to experiments on both ShapeNet and ABC.
 ### Data
-[ShapeNetCore.v2 Pointclouds](https://www.dropbox.com/s/72j1resv5kv6e8c/ShapeNet55_ptcl.tar)
-[ShapeNetCore.v2 SDF](https://www.dropbox.com/s/75lxxtmxkdr1be9/ShapeNet55_sdf.tar)
-[3-DOF viewpoint LRBg ShapeNetCore.v2 renders](https://www.dropbox.com/s/yw03ohg04834vvv/ShapeNet55_3DOF-VC_LRBg.tar)
-[3-DOF VC D+N Pred](https://www.dropbox.com/s/qz227pr2vbrzu9l/ShapeNet55_HVC_LR_PRED.tar)
-[3-DOF VC D+N Pred Seen Test](https://www.dropbox.com/s/fscakvixba2kixt/ShapeNet55_HVC_LR_PRED_SEEN_TEST.tar)
-[3-DOF VC D+N Pred Unseen](https://www.dropbox.com/s/sue8zzqppl2fuwm/ShapeNet55_HVC_LR_PRED_UNSEEN.tar)
-[Train/Val/Test json on 13 classes of ShapeNetCore.v2](https://www.dropbox.com/s/7shqu6krvs9x1ib/data_split.json)
-[Test json on 42 classes of ShapeNetCore.v2](link)
+1. [ShapeNetCore.v2 Pointclouds](https://www.dropbox.com/s/72j1resv5kv6e8c/ShapeNet55_ptcl.tar)
+2. [ShapeNetCore.v2 SDF](https://www.dropbox.com/s/75lxxtmxkdr1be9/ShapeNet55_sdf.tar)
+3. [3-DOF viewpoint LRBg ShapeNetCore.v2 renders](https://www.dropbox.com/s/yw03ohg04834vvv/ShapeNet55_3DOF-VC_LRBg.tar)
+4. [3-DOF VC D+N Pred](https://www.dropbox.com/s/qz227pr2vbrzu9l/ShapeNet55_HVC_LR_PRED.tar)
+5. [3-DOF VC D+N Pred Seen Test](https://www.dropbox.com/s/fscakvixba2kixt/ShapeNet55_HVC_LR_PRED_SEEN_TEST.tar)
+6. [3-DOF VC D+N Pred Unseen](https://www.dropbox.com/s/sue8zzqppl2fuwm/ShapeNet55_HVC_LR_PRED_UNSEEN.tar)
+7. [Train/Val/Test json on 13 classes of ShapeNetCore.v2](https://www.dropbox.com/s/7shqu6krvs9x1ib/data_split.json)
+8. [Test json on 42 classes of ShapeNetCore.v2](link)
 ### Training SDFNet
 After changing the parameters in `config.py` run the following to train the model from scratch
 ```bash
@@ -29,8 +29,8 @@ python train.py
 ```
 ### Pre-trained SDFNet
 The following are links to download pretrained SDFNet models
-[3-DOF VC with GT Depth+Normals](https://www.dropbox.com/s/p6pxqyxk1p5gp8f/best_model_gt_dn_3DOF.pth.tar)
-[3-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/uavq47qt80ltbyq/best_model_pred_dn_3DOF.pth.tar)
+1. [3-DOF VC with GT Depth+Normals](https://www.dropbox.com/s/p6pxqyxk1p5gp8f/best_model_gt_dn_3DOF.pth.tar)
+2. [3-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/uavq47qt80ltbyq/best_model_pred_dn_3DOF.pth.tar)
 ### Testing SDFNet
 ```bash
 python eval.py
