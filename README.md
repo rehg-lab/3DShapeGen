@@ -7,7 +7,7 @@ This repository consists of the code for rendering, training and evaluating SDFN
 Follow instructions in [SDFNet README](https://github.com/devlearning-gt/3DShapeGen/blob/master/SDFNet/README.md)
 
 ## Training and evaluating GenRe
-Follow instruction in [GenRe README](https://github.com/devlearning-gt/GenRe-ShapeHD/blob/master/README.md)
+Follow instruction in [GenRe README](https://github.com/devlearning-gt/GenRe-ShapeHD)
 
 ## Rendering
 Follow instructions in [Rendering README](https://github.com/devlearning-gt/3DShapeGen/blob/master/Rendering/README.md)
