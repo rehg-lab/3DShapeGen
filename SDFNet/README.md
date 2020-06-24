@@ -21,7 +21,7 @@ Note that the following ground truths generation, training and testing procedure
 5. [3-DOF VC D+N Pred Seen Test](https://www.dropbox.com/s/fscakvixba2kixt/ShapeNet55_HVC_LR_PRED_SEEN_TEST.tar)
 6. [3-DOF VC D+N Pred Unseen](https://www.dropbox.com/s/sue8zzqppl2fuwm/ShapeNet55_HVC_LR_PRED_UNSEEN.tar)
 7. [Train/Val/Test json on 13 classes of ShapeNetCore.v2](https://www.dropbox.com/s/7shqu6krvs9x1ib/data_split.json)
-8. [Test json on 42 classes of ShapeNetCore.v2](https://www.dropbox.com/s/m40387begcefm1h/data_13_42_split_unseen.json)
+8. [Test json on 42 classes of ShapeNetCore.v2](https://www.dropbox.com/s/2tuuhqrtw0vz6bd/data_13_42_split_unseen.json)
 ### Training SDFNet
 After changing the parameters in `config.py` run the following to train the model from scratch
 ```bash
