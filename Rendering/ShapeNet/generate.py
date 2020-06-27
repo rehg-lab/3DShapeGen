@@ -163,7 +163,9 @@ def generate():
 
     #set object position to canonical pose
     obj.rotation_euler = (0, np.radians(-180), 0)
-
+    
+    bpy.context.scene.objects.active = obj
+    obj.select = True
     bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
     
     if not os.path.exists(
@@ -208,11 +210,11 @@ def generate():
     
     rotations = np.random.uniform(low=data_gen_params['gen_params']['azim_range'][0], 
                               high=data_gen_params['gen_params']['azim_range'][1], 
-                              size=25)
+                              size=data_gen_params['gen_params']['n_points'])
 
     elevations = np.random.uniform(low=data_gen_params['gen_params']['elev_range'][0], 
                                    high=data_gen_params['gen_params']['elev_range'][1], 
-                                   size=25)
+                                   size=data_gen_params['gen_params']['n_points'])
    
     np.savetxt(metadata_save_path, 
                np.array([rotations, elevations]).T, 
