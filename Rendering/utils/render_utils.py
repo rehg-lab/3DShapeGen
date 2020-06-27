@@ -456,8 +456,11 @@ def adjust_links(tree):
 
     output_nodes = [x for x in tree.nodes if 'Output' in x.name]
     for node in output_nodes:
-        l = node.inputs[0].links[0]
-        tree.links.remove(l)
+        try:
+            l = node.inputs[0].links[0]
+            tree.links.remove(l)
+        except:
+            print("nodes have been removed")
 
     tree.links.new(scene_image_output, normal_output_input)
 
