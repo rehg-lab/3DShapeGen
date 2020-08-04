@@ -13,7 +13,7 @@ export LD_LIBRARY_PATH="<path_to_anaconda>/lib:<path_to_anaconda>/envs/sdf_net/l
 source isosurface/LIB_PATH
 ```
 Note that the following ground truths generation, training and testing procedures apply to experiments on both ShapeNet and ABC.
-### Data
+### Data [08/04/2020 - Data Temporarily Unavailable Due to Issues with Dropbox]
 1. [ShapeNetCore.v2 SDF + Point Clouds](https://www.dropbox.com/s/75lxxtmxkdr1be9/ShapeNet55_sdf.tar)
 1. [3-DOF viewpoint LRBg ShapeNetCore.v2 renders](https://www.dropbox.com/s/yw03ohg04834vvv/ShapeNet55_3DOF-VC_LRBg.tar)
 1. [3-DOF VC D+N Pred](https://www.dropbox.com/s/qz227pr2vbrzu9l/ShapeNet55_HVC_LR_PRED.tar)
