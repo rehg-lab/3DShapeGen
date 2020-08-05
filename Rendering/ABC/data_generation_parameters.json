@@ -55,9 +55,9 @@
         "sensor_size_mm":32
     },
     "paths":{
-        "blender_path":"/home/sstojanov3/apps/blender-2.79b-linux-glibc219-x86_64/blender",
-        "ABC_path":"/media/sstojanov3/data_HDD/ABC_dataset/ABC-100K/ABC_meshes_000",
-        "output_path":"/home/sstojanov3/develop/bmvc2020-release/Rendering/test/"
+        "blender_path":"<path_to_blender>/blender-2.79b-linux-glibc219-x86_64/blender",
+        "ABC_path":"<ABC_meshes_path>",
+        "output_path":"<output_path>"
     },
     "gen_params":{
         "elev_range":[-50, 50],
