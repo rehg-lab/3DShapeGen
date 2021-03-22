@@ -55,9 +55,9 @@
         "sensor_size_mm":32
     },
     "paths":{
-        "blender_path":"/home/sstojanov3/apps/blender-2.79b-linux-glibc219-x86_64/blender",
-        "shapenet_path":"/media/sstojanov3/2_TB_1/ShapeNet_meshes/ShapeNetCore.v2",
-        "output_path":"/home/sstojanov3/develop/bmvc2020-release/Rendering/shapenet_test"
+        "blender_path":"<path_to_blender>/blender-2.79b-linux-glibc219-x86_64/blender",
+        "shapenet_path":"<path_to_shapenet>/ShapeNetCore.v2",
+        "output_path":"<output_path>"
     },
     "gen_params":{
         "elev_range":[-50, 50],
