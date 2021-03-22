@@ -335,7 +335,11 @@ def eval(model, criterion, optimizer, loader, batch_size, epoch_it, rep):
                 pbar.update(1)
 
     mean_loss = np.mean(np.array(loss_collect))
-    mean_metric = np.mean(np.array(metric_collect), axis=0)
+    if rep == 'occ':
+        mean_metric = np.mean(np.concatenate(metric_collect))
+        mean_metric = [mean_metric]
+    else:
+        mean_metric = np.mean(np.array(metric_collect), axis=0)
 
     return mean_loss, mean_metric
 

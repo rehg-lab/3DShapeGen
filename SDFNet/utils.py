@@ -85,6 +85,8 @@ def compute_iou(occ1, occ2):
     area_intersect = (occ1 & occ2).astype(np.float32).sum(axis=-1)
 
     iou = (area_intersect / area_union)
+    if isinstance(iou, (list, np.ndarray)):
+        iou = np.mean(iou, axis=0)
 
     return iou
 
