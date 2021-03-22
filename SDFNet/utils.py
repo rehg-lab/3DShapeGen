@@ -292,7 +292,14 @@ def eval_mesh(mesh, pointcloud_gt, normals_gt, points, val_gt, \
         pointcloud = pointcloud.astype(np.float32)
         normals = mesh.face_normals[idx]
     else:
-        return {'iou': 0., 'cd': 2*np.sqrt(3), 'completeness': np.sqrt(3),\
+        if rep == 'occ':
+            return {'iou': 0., 'cd': 2*np.sqrt(3), 'completeness': np.sqrt(3),\
+                    'accuracy': np.sqrt(3), 'normals_completeness': -1,\
+                    'normals_accuracy': -1, 'normals': -1, \
+                    'fscore': np.zeros(6, dtype=np.float32), \
+                    'precision': np.zeros(6, dtype=np.float32), \
+                    'recall': np.zeros(6, dtype=np.float32)}
+        return {'iou': [0.,0.], 'cd': 2*np.sqrt(3), 'completeness': np.sqrt(3),\
                     'accuracy': np.sqrt(3), 'normals_completeness': -1,\
                     'normals_accuracy': -1, 'normals': -1, \
                     'fscore': np.zeros(6, dtype=np.float32), \
