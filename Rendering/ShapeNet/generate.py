@@ -86,7 +86,7 @@ def generate():
     
     ## setting camera parameters
     bpy.data.objects['Camera'].data.sensor_width = data_gen_params['camera']['sensor_size_mm']
-    bpy.data.objects['Camera'].data.sensor_width = data_gen_params['camera']['focal_length_mm']
+    bpy.data.objects['Camera'].data.lens = data_gen_params['camera']['focal_length_mm']
     bpy.data.objects['Camera'].location = (0,0,data_gen_params['camera']['distance_units'])
 
     #setting variables
