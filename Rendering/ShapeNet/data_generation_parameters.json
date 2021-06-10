@@ -50,7 +50,7 @@
         "rougness_range":[0.1,0.25]
     },
     "camera":{
-        "focal_length_mm":35,
+        "focal_length_mm":50,
         "distance_units":2.2,
         "sensor_size_mm":32
     },
