@@ -105,9 +105,10 @@ def main():
 
     # Resume/continue training
     if cont is not None:
-        checkpoint = torch.load(os.path.join(out_dir, cont))
-        if not os.path.exists(checkpoint):
+        checkpoint_path = os.path.join(out_dir, cont)
+        if not os.path.exists(checkpoint_path):
             raise Exception('Checkpoint does not exist')
+        checkpoint = torch.load(checkpoint_path)
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         for state in optimizer.state.values():
