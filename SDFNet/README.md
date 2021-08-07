@@ -30,6 +30,7 @@ python train.py
 The following are links to download pretrained SDFNet models
 1. [3-DOF VC with GT Depth+Normals](https://www.dropbox.com/s/p6pxqyxk1p5gp8f/best_model_gt_dn_3DOF.pth.tar)
 2. [3-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/uavq47qt80ltbyq/best_model_pred_dn_3DOF.pth.tar)
+3. [2-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/x8drovd6qy5tbko/best_model_pred_dn_2DOF.pth.tar)
 ### Testing SDFNet
 ```bash
 python eval.py
