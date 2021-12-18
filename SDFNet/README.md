@@ -33,6 +33,7 @@ The following are links to download pretrained SDFNet models
 1. [3-DOF VC with GT Depth+Normals](https://www.dropbox.com/s/p6pxqyxk1p5gp8f/best_model_gt_dn_3DOF.pth.tar)
 2. [3-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/uavq47qt80ltbyq/best_model_pred_dn_3DOF.pth.tar)
 3. [2-DOF VC with predicted Depth+Normals](https://www.dropbox.com/s/x8drovd6qy5tbko/best_model_pred_dn_2DOF.pth.tar)
+4. [3-DOF VC with Image on LRBg data](https://www.dropbox.com/s/6yhmbwa6stcj1hx/best_model_img_3DOF.pth.tar)
 ### Testing SDFNet
 ```bash
 python eval.py
