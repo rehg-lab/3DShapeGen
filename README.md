@@ -1,5 +1,5 @@
 # 3D Reconstruction of Novel Object Shapes from Single Images
-![preview](./data/preview.png)
+![preview](./data/twitter_gif.gif)
 
 In this work we present a comprehensive exploration of generalization to unseen shapes in single-view 3D reconstruction. We introduce SDFNet, an architecture combining 2.5D sketch estimation with a continuous shape regressor for signed distance functions of objects. We show new findings on the impact of rendering variability and adopting a 3-DOF VC (3 Degree-of-Freedom Viewer Centered) coordinate representation on generalization to object shapes not seen during training. Our model can generalize to objects of unseen categories, and to objects from a significantly different shape dataset. [Link](https://arxiv.org/pdf/2006.07752.pdf) to our paper and [link](https://devlearning-gt.github.io/3DShapeGen/) to our project webpage.
 
